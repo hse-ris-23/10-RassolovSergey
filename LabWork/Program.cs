@@ -22,11 +22,10 @@ namespace LabWork
             Card card3 = new Card();
             card3.Init();
             card3.Show();
-            // Метод формирования объектов класса с помощью ДСЧ ?????????
+            //Метод формирования объектов класса с помощью ДСЧ ?????????
             Card card4 = new Card();
             card4.RandomInit();
             card4.Show();
-
         }
     }
 }

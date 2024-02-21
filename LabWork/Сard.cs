@@ -99,27 +99,23 @@ namespace LabWork
             return card;
         }
         // Метод формирования объектов класса с помощью ДСЧ
-        public Card RandomInit()
+        public void RandomInit()
         {
-            // Создаем новый объект класса Card с случайными значениями
-            Card card = new Card
-            {
-                Id = GenerateRandomId(),
-                Name = GenerateRandomName(),
-                Time = GenerateRandomTime()
-            };
-            return card;
+            // Обновляем текущий экземпляр Card с случайными значениями
+            Id = GenerateRandomId();
+            Name = GenerateRandomName();
+            Time = GenerateRandomTime();
         }
 
         // Вспомогательный метод для генерации случайного ID
-        private string GenerateRandomId()
+        public string GenerateRandomId()
         {
             // Генерируем 19 случайных цифр и добавляем пробелы
             return string.Format("{0:D4} {1:D4} {2:D4} {3:D4}", rnd.Next(10000), rnd.Next(10000), rnd.Next(10000), rnd.Next(10000));
         }
 
         // Вспомогательный метод для генерации случайного имени
-        private string GenerateRandomName()
+        public string GenerateRandomName()
         {
             // Пример генерации случайного имени
             string[] names = { "Ivan", "Maria", "John", "Anna", "Alex", "Olga" };
@@ -127,12 +123,23 @@ namespace LabWork
         }
 
         // Вспомогательный метод для генерации случайного срока действия
-        private string GenerateRandomTime()
+        public string GenerateRandomTime()
         {
             // Генерируем случайный месяц (от 01 до 12) и год (от 00 до 99)
             return string.Format("{0:D2} {1:D2}", rnd.Next(1, 13), rnd.Next(0, 100));
         }
+        public override bool Equals(object obj)
+        {
+            // Проверяем, является ли переданный объект null или не является объектом класса Card
+            if (obj == null) return false;
+            if (!(obj is Card)) return false;
 
+            // Приводим объект к типу Card
+            Card other = (Card)obj;
+
+            // Сравниваем значения широты текущего объекта с другим объектом GeoCoordinates
+            return this.Id == other.Id && this.Name == other.Name && this.Time == other.Time;
+        }
     }
 }
 
