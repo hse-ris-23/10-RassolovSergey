@@ -4,37 +4,36 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace LabWork
+namespace ClassLibraryLab10
 {
-    public class DebitCard : Card
+    public class JunCard : Card
     {
-        private int balance; // Баланс владельца
+        private int cashBack; // Кешбек по карте
 
-        // Свойства для баланса
-        public int Balance
+        // Свойства кешбека
+        public int CashBack
         {
-            get => balance;
+            get => cashBack;
             set
             {
-                if (value < 0) { balance = 0; }
-                if (value > 10000000) { throw new Exception("Превышел лимит по вашей карте"); } // Лимит хранимых средств: 10млн.
-                balance = value;
+                if (value < 1 || value > 100) { throw new Exception("Невозможный процент кешбека"); }
+                cashBack = value;
             }
         }
         // Конструктор без параметров
-        public DebitCard() : base()
+        public JunCard() : base()
         {
-            Balance = 0;
+            CashBack = 5;
         }
         // Конструктор c параметром
-        public DebitCard(string id, string name, string time, int balance) : base(id, name, time)
+        public JunCard(string id, string name, string time, int cachBack) : base(id, name, time)
         {
-            Balance =  balance;
+            CashBack = cachBack;
         }
         // Конструктор копирования
-        public DebitCard(DebitCard dCard) : base(dCard)
+        public JunCard(JunCard jCard) : base(jCard)
         {
-            Balance = dCard.Balance;
+            CashBack = jCard.CashBack;
         }
         // Метод ввода информации об объектах класса с клавиатуры
         public DebitCard Init()
@@ -48,29 +47,29 @@ namespace LabWork
             Console.WriteLine("Введите Срок действия (в формате MM YY): ");
             Time = Console.ReadLine();
 
-            Balance = (int)InputUintNumber("Введите баланс вашей карты: ");
-            DebitCard dCard = new DebitCard(Id, Name, Time, Balance);
+            CashBack = (int)InputUintNumber("Введите кешбек по вашей карте вашей карты: ");
+            DebitCard dCard = new DebitCard(Id, Name, Time, CashBack);
             return dCard;
         }
         // Метод формирования объектов класса с помощью ДСЧ
         public override void RandomInit()
         {
-            // Обновляем текущий экземпляр DebitCard с случайными значениями
+            // Обновляем текущий экземпляр JunCard с случайными значениями
             Id = GenerateRandomId();
             Name = GenerateRandomName();
             Time = GenerateRandomTime();
-            Balance = GenerateRandomBalance();
+            CashBack = GenerateRandomTimeCashBack();
+        }
+        // Вспомогательный метод для генерации случайного процента кешбека
+        public int GenerateRandomTimeCashBack()
+        {
+            return rnd.Next(1, 100);
         }
 
-        // Вспомогательный метод для генерации случайного баланса
-        public int GenerateRandomBalance()
-        {
-            return (rnd.Next(1, 100000));
-        }
         // Метод просмотра объектов класса
         public override void Show()
         {
-            Console.WriteLine($"ID: {Id} \t Имя: {Name} \t Срок действия: {Time} \t Баланс: {Balance}");
+            Console.WriteLine($"ID: {Id} \t Имя: {Name} \t Срок действия: {Time} \t Кешбек: {CashBack}%");
         }
     }
 }

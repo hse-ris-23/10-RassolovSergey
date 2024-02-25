@@ -4,9 +4,9 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace LabWork
+namespace ClassLibraryLab10
 {
-    internal class CreditCard : Card
+    public class CreditCard : Card
     {
         private int limit; // Лимит средств
         private int timeCredit; // Срок погашения
