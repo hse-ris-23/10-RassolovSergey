@@ -116,12 +116,27 @@ namespace ClassLibraryLab10
 
 
         // Метод ввода информации об объектах класса с клавиатуры
-        public abstract void Init();
+        public virtual void Init()
+        {
+            Console.WriteLine("Введите ID (используя пробелы): ");
+            Id = Console.ReadLine();
+
+            Console.WriteLine("Введите Имя (от 3 до 30 символов): ");
+            Name = Console.ReadLine();
+
+            Console.WriteLine("Введите Срок действия (в формате MM YY): ");
+            Time = Console.ReadLine();
+        }
 
 
 
         // Метод формирования объектов класса с помощью ДСЧ
-        public abstract void RandomInit();
+        public virtual void RandomInit()
+        {
+            Id = GenerateRandomId();
+            Name = GenerateRandomName();
+            Time = GenerateRandomTime();
+        }
 
 
 

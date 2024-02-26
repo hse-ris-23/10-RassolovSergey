@@ -9,8 +9,61 @@ namespace LabWork
 {
     internal class Program
     {
-        static void Main(string[] args)
+        public static int AmountMonthlyRefunds(Card[] arr)
         {
+            int srd = 0;            // Переменная для записи средней суммы
+            int countCredCard = 0;  // Переменная для подсчета карт
+            double sredF = 0;       // Переменная для финального подсчета и вывода
+
+            // Средняя сумма ежемесячных возвратов по доступным лимитам всех кредитных карт.
+            foreach (Card item in arr)
+            {
+                if (item is CreditCard cred)
+                {
+                    srd += (cred.Limit / cred.TimeCredit);
+                    countCredCard++;
+                }
+            }
+
+            sredF = srd / countCredCard;
+            return (int)sredF;
+        }
+
+
+        // Владельцы карт с истёкшим сроком действия.
+        public static void HoldersExCards(Card[] arr)
+        {
+            foreach (Card item in arr)
+            {
+                string input = item.Time;         // Получаем срок действия карты
+                string[] time = input.Split(' '); // Разделяем строку на числа
+                int years = int.Parse(time[1]);   // Записываем год в переменную
+                int month = int.Parse(time[0]);   // Записываем месяц в переменную
+                if ((month > 2 && years == 24) || (years< 24))  // Проверяем, если срок прошёл то выполняем
+                {
+                    Console.Write(item.Name + " \t ");  // Имя Владельца
+                    item.Show();                        // Информация о карте (Для проверки)
+                }
+            }
+}
+        //Общая сумма возможного кешбека по всем действующим молодёжным картам
+        public static void SumCashback(Card[] arr)
+        {
+            double sum = 0;
+            foreach (Card item in arr)
+            {
+                if (item is JunCard jun)
+                {
+                    double cachBack = ((JunCard)item).CashBack; // Создаем переменную кешбека 
+                    int balance = ((JunCard)item).Balance; // Баланс? Молодежнгая карта должна зависить от дебетовой?
+                    sum += balance* (cachBack/100);
+                }
+            }
+            Console.WriteLine($"\nОбщая сумма возможного кешбека по всем действующим молодёжным картам: \t {sum}");
+        }
+
+        static void Main(string[] args)
+                {
             //// Демонстрация класса Card
             {
                 //// Класс CARD
@@ -125,19 +178,16 @@ namespace LabWork
                 //credCard5.Show();
             }
 
-            Card[] arr = new Card[30]; // Создаём список для хранение экземпляров классов
-            for (int i = 0; i < 30;) // Создаём 10 экземпляров класса
+            Card[] arr = new Card[20]; // Создаём список для хранение экземпляров классов
+            for (int i = 0; i < 20;) // Создаём 10 экземпляров класса
             {
-                // Создаём и генерируем объект класса DebitCard
-                arr[i] = new DebitCard();
-                arr[i].RandomInit();
                 // Создаём и генерируем объект класса JunCard
-                arr[i+1] = new JunCard();
-                arr[i+1].RandomInit();
+                arr[i] = new JunCard();
+                arr[i].RandomInit();
                 // Создаём и генерируем объект класса CreditCard
-                arr[i+2] = new CreditCard();
-                arr[i+2].RandomInit();
-                i += 3;
+                arr[i+1] = new CreditCard();
+                arr[i+1].RandomInit();
+                i += 2;
             }
             int countCard = 1;
 
@@ -150,35 +200,15 @@ namespace LabWork
                 countCard++;
             }
 
-            int srd = 0;
-            int countCredCard = 0;
+
             // Средняя сумма ежемесячных возвратов по доступным лимитам всех кредитных карт.
-            foreach (Card item in arr)
-            {
-                if (item is CreditCard cred)
-                {
-                    srd += (cred.Limit / cred.TimeCredit);
-                    countCredCard++;
-                }
-            }
-            Console.WriteLine($"Средняя плата по кредитам: \t {srd / countCredCard}");
+            Console.WriteLine($"\nСредняя плата по кредитам: \t {AmountMonthlyRefunds(arr)} \n");
 
 
             // Владельцы карт с истёкшим сроком действия.
-            Console.WriteLine("Дата задана сроком написания: 25.02.24");
-            Console.WriteLine("Владельцы просроченных карт:");
-            foreach (Card item in arr)
-            {
-                string input = item.Time;
-                string[] time = input.Split(' '); // Разделяем строку на числа
-                int years = int.Parse(time[1]);
-                int month = int.Parse(time[0]);
-                if ((month > 2 && years == 24) || (years < 24))
-                {
-                    Console.Write(item.Name + " \t ");
-                    item.Show();
-                }
-            }
+            Console.WriteLine("\nВладельцы просроченных карт:");
+            Console.WriteLine("(Дата задана сроком написания: 25.02.24)");
+            HoldersExCards(arr);
 
 
             //Общая сумма возможного кешбека по всем действующим молодёжным картам.
@@ -188,11 +218,11 @@ namespace LabWork
                 if (item is JunCard jun)
                 {
                     double cachBack = ((JunCard)item).CashBack; // Создаем переменную кешбека 
-                    int balance = 1000; // Баланс? Молодежнгая карта должна зависить от дебетовой?
+                    int balance = ((JunCard)item).Balance; // Баланс? Молодежнгая карта должна зависить от дебетовой?
                     sum += balance * (cachBack/100);
                 }
             }
-            Console.WriteLine($"Общая сумма возможного кешбека по всем действующим молодёжным картам: \t {sum}");
+            Console.WriteLine($"\nОбщая сумма возможного кешбека по всем действующим молодёжным картам: \t {sum}");
         }
     }
 }

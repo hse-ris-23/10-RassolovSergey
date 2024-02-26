@@ -6,7 +6,7 @@ using System.Threading.Tasks;
 
 namespace ClassLibraryLab10
 {
-    public class DebitCard : Card
+    public abstract class DebitCard : Card
     {
         private int balance; // Баланс владельца
 
@@ -34,7 +34,7 @@ namespace ClassLibraryLab10
         // Конструктор копирования
         public DebitCard(DebitCard dCard) : base(dCard)
         {
-            Balance = dCard.Balance;
+            Balance = balance;
         }
         // Метод ввода информации об объектах класса с клавиатуры
         public override void Init()
@@ -48,16 +48,13 @@ namespace ClassLibraryLab10
             Console.WriteLine("Введите Срок действия (в формате MM YY): ");
             Time = Console.ReadLine();
 
-            Balance = (int)InputUintNumber("Введите баланс вашей карты: ");
-            DebitCard dCard = new DebitCard(Id, Name, Time, Balance);
+            Balance = (int)InputUintNumber("Введите ваш баланс: ");
         }
+
         // Метод формирования объектов класса с помощью ДСЧ
         public override void RandomInit()
         {
-            // Обновляем текущий экземпляр DebitCard с случайными значениями
-            Id = GenerateRandomId();
-            Name = GenerateRandomName();
-            Time = GenerateRandomTime();
+            base.RandomInit(); // Вызываем метод инициализации базового класса DebitCard
             Balance = GenerateRandomBalance();
         }
 
@@ -67,9 +64,6 @@ namespace ClassLibraryLab10
             return (rnd.Next(1, 100000));
         }
         // Метод просмотра объектов класса
-        public override void Show()
-        {
-            Console.WriteLine($"ID: {Id} \t Имя: {Name} \t Срок действия: {Time} \t Баланс: {Balance}");
-        }
+        public abstract override void Show();
     }
 }

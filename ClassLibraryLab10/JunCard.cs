@@ -6,7 +6,7 @@ using System.Threading.Tasks;
 
 namespace ClassLibraryLab10
 {
-    public class JunCard : Card
+    public class JunCard : DebitCard
     {
         private int cashBack; // Кешбек по карте
 
@@ -26,37 +26,27 @@ namespace ClassLibraryLab10
             CashBack = 5;
         }
         // Конструктор c параметром
-        public JunCard(string id, string name, string time, int cachBack) : base(id, name, time)
+        public JunCard(string id, string name, string time, int balance, int cashBack) : base(id, name, time, balance)
         {
-            CashBack = cachBack;
+            CashBack = cashBack;
         }
         // Конструктор копирования
         public JunCard(JunCard jCard) : base(jCard)
         {
             CashBack = jCard.CashBack;
         }
-        // Метод ввода информации об объектах класса с клавиатуры
+
+        // Реализация абстрактного метода для ввода информации
         public override void Init()
         {
-            Console.WriteLine("Введите ID (используя пробелы): ");
-            Id = Console.ReadLine();
-
-            Console.WriteLine("Введите Имя (от 3 до 30 символов): ");
-            Name = Console.ReadLine();
-
-            Console.WriteLine("Введите Срок действия (в формате MM YY): ");
-            Time = Console.ReadLine();
-
-            CashBack = (int)InputUintNumber("Введите кешбек по вашей карте вашей карты: ");
-            DebitCard dCard = new DebitCard(Id, Name, Time, CashBack);
+            base.Init(); // Вызываем метод инициализации базового класса DebitCard
+            CashBack = (int)InputUintNumber("Введите кешбек по вашей карте: ");
         }
+
         // Метод формирования объектов класса с помощью ДСЧ
         public override void RandomInit()
         {
-            // Обновляем текущий экземпляр JunCard с случайными значениями
-            Id = GenerateRandomId();
-            Name = GenerateRandomName();
-            Time = GenerateRandomTime();
+            base.RandomInit(); // Вызываем метод инициализации базового класса DebitCard
             CashBack = GenerateRandomTimeCashBack();
         }
 
@@ -69,7 +59,7 @@ namespace ClassLibraryLab10
         // Метод просмотра объектов класса
         public override void Show()
         {
-            Console.WriteLine($"ID: {Id} \t Имя: {Name} \t Срок действия: {Time} \t Кешбек: {CashBack}%");
+            Console.WriteLine($"ID: {Id} \t Имя: {Name} \t Срок действия: {Time} \t Баланс: {Balance}       \t Кешбек: {CashBack}%");
         }
     }
 }
