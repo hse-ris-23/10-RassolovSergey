@@ -50,7 +50,7 @@ namespace ClassLibraryLab10
             TimeCredit = credCard.TimeCredit;
         }
         // Метод ввода информации об объектах класса с клавиатуры
-        public CreditCard Init()
+        public override void Init()
         {
             Console.WriteLine("Введите ID (используя пробелы): ");
             Id = Console.ReadLine();
@@ -65,7 +65,6 @@ namespace ClassLibraryLab10
 
             TimeCredit = (int)InputUintNumber("Введите срок погашения кредита: ");
             CreditCard credCard = new CreditCard(Id, Name, Time, Limit, TimeCredit);
-            return credCard;
         }
         // Метод формирования объектов класса с помощью ДСЧ
         public override void RandomInit()

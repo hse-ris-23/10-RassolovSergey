@@ -125,31 +125,74 @@ namespace LabWork
                 //credCard5.Show();
             }
 
-            Card[] arr = new Card[40]; // Создаём список для хранение экземпляров классов
-            for (int i = 0; i < 40;) // Создаём 10 экземпляров класса
+            Card[] arr = new Card[30]; // Создаём список для хранение экземпляров классов
+            for (int i = 0; i < 30;) // Создаём 10 экземпляров класса
             {
-                // Создаём и генерируем объект класса Card
-                arr[i] = new Card();
-                arr[i].RandomInit();
                 // Создаём и генерируем объект класса DebitCard
-                arr[i+1] = new DebitCard();
-                arr[i+1].RandomInit();
+                arr[i] = new DebitCard();
+                arr[i].RandomInit();
                 // Создаём и генерируем объект класса JunCard
-                arr[i+2] = new JunCard();
-                arr[i+2].RandomInit();
+                arr[i+1] = new JunCard();
+                arr[i+1].RandomInit();
                 // Создаём и генерируем объект класса CreditCard
-                arr[i+3] = new CreditCard();
-                arr[i+3].RandomInit();
-                i += 4;
+                arr[i+2] = new CreditCard();
+                arr[i+2].RandomInit();
+                i += 3;
             }
-            int countDebitCard = 1;
-            foreach (Card item in arr) // Выводим экземпляры класса
+            int countCard = 1;
+
+
+            // Выводим экземпляры класса (Виртуальными методами)
+            foreach (Card item in arr) 
             {
-                if (item is DebitCard) { }
-                Console.Write(countDebitCard + ")\t");
+                Console.Write(countCard + ")\t");
                 item.Show();
-                countDebitCard++;
+                countCard++;
             }
+
+            int srd = 0;
+            int countCredCard = 0;
+            // Средняя сумма ежемесячных возвратов по доступным лимитам всех кредитных карт.
+            foreach (Card item in arr)
+            {
+                if (item is CreditCard cred)
+                {
+                    srd += (cred.Limit / cred.TimeCredit);
+                    countCredCard++;
+                }
+            }
+            Console.WriteLine($"Средняя плата по кредитам: \t {srd / countCredCard}");
+
+
+            // Владельцы карт с истёкшим сроком действия.
+            Console.WriteLine("Дата задана сроком написания: 25.02.24");
+            Console.WriteLine("Владельцы просроченных карт:");
+            foreach (Card item in arr)
+            {
+                string input = item.Time;
+                string[] time = input.Split(' '); // Разделяем строку на числа
+                int years = int.Parse(time[1]);
+                int month = int.Parse(time[0]);
+                if ((month > 2 && years == 24) || (years < 24))
+                {
+                    Console.Write(item.Name + " \t ");
+                    item.Show();
+                }
+            }
+
+
+            //Общая сумма возможного кешбека по всем действующим молодёжным картам.
+            double sum = 0;
+            foreach (Card item in arr)
+            {
+                if (item is JunCard jun)
+                {
+                    double cachBack = ((JunCard)item).CashBack; // Создаем переменную кешбека 
+                    int balance = 1000; // Баланс? Молодежнгая карта должна зависить от дебетовой?
+                    sum += balance * (cachBack/100);
+                }
+            }
+            Console.WriteLine($"Общая сумма возможного кешбека по всем действующим молодёжным картам: \t {sum}");
         }
     }
 }

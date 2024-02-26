@@ -36,7 +36,7 @@ namespace ClassLibraryLab10
             CashBack = jCard.CashBack;
         }
         // Метод ввода информации об объектах класса с клавиатуры
-        public DebitCard Init()
+        public override void Init()
         {
             Console.WriteLine("Введите ID (используя пробелы): ");
             Id = Console.ReadLine();
@@ -49,7 +49,6 @@ namespace ClassLibraryLab10
 
             CashBack = (int)InputUintNumber("Введите кешбек по вашей карте вашей карты: ");
             DebitCard dCard = new DebitCard(Id, Name, Time, CashBack);
-            return dCard;
         }
         // Метод формирования объектов класса с помощью ДСЧ
         public override void RandomInit()
@@ -60,6 +59,7 @@ namespace ClassLibraryLab10
             Time = GenerateRandomTime();
             CashBack = GenerateRandomTimeCashBack();
         }
+
         // Вспомогательный метод для генерации случайного процента кешбека
         public int GenerateRandomTimeCashBack()
         {

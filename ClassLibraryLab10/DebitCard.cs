@@ -37,7 +37,7 @@ namespace ClassLibraryLab10
             Balance = dCard.Balance;
         }
         // Метод ввода информации об объектах класса с клавиатуры
-        public DebitCard Init()
+        public override void Init()
         {
             Console.WriteLine("Введите ID (используя пробелы): ");
             Id = Console.ReadLine();
@@ -50,7 +50,6 @@ namespace ClassLibraryLab10
 
             Balance = (int)InputUintNumber("Введите баланс вашей карты: ");
             DebitCard dCard = new DebitCard(Id, Name, Time, Balance);
-            return dCard;
         }
         // Метод формирования объектов класса с помощью ДСЧ
         public override void RandomInit()

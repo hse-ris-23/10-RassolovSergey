@@ -6,7 +6,7 @@ using System.Threading.Tasks;
 
 namespace ClassLibraryLab10
 {
-    public class Card
+    public abstract class Card
     {
         // Вспомогательная функция Проверка ввода числа (Uint)
         protected static uint InputUintNumber(string msg)
@@ -23,10 +23,15 @@ namespace ClassLibraryLab10
             } while (!isConvert);
             return number;
         }
+
+
+
         public static Random rnd = new Random(1000); // Вспомогательный
         private string id;      // ID владельца
         private string name;    // Имя владельца
         private string time;    // Срок действия
+
+
 
         // Свойства для id
         public string Id
@@ -42,6 +47,7 @@ namespace ClassLibraryLab10
                 id = value;
             }
         }
+
 
         // Свойства для name
         public string Name
@@ -72,6 +78,8 @@ namespace ClassLibraryLab10
                 time = value;
             }
         }
+
+
         // Конструктор без параметра
         public Card()
         {
@@ -87,6 +95,8 @@ namespace ClassLibraryLab10
             Name = name;
             Time = time;
         }
+
+
         // Конструктор копирования
         public Card(Card card)
         {
@@ -94,33 +104,26 @@ namespace ClassLibraryLab10
             Name = card.Name;
             Time = card.Time;
         }
+
+
+
         // Метод просмотра объектов класса
         public virtual void Show()
         {
             Console.WriteLine($"ID: {Id} \t Имя: {Name} \t Срок действия: {Time}");
         }
+
+
+
         // Метод ввода информации об объектах класса с клавиатуры
-        public Card Init()
-        {
-            Console.WriteLine("Введите ID (используя пробелы): ");
-            Id = Console.ReadLine();
+        public abstract void Init();
 
-            Console.WriteLine("Введите Имя (от 3 до 30 символов): ");
-            Name = Console.ReadLine();
 
-            Console.WriteLine("Введите Срок действия (в формате MM YY): ");
-            Time = Console.ReadLine();
-            Card card = new Card(Id, Name, Time);
-            return card;
-        }
+
         // Метод формирования объектов класса с помощью ДСЧ
-        public virtual void RandomInit()
-        {
-            // Обновляем текущий экземпляр Card с случайными значениями
-            Id = GenerateRandomId();
-            Name = GenerateRandomName();
-            Time = GenerateRandomTime();
-        }
+        public abstract void RandomInit();
+
+
 
         // Вспомогательный метод для генерации случайного ID
         public string GenerateRandomId()
@@ -128,6 +131,8 @@ namespace ClassLibraryLab10
             // Генерируем 16 случайных цифр и добавляем пробелы
             return string.Format("{0:D4} {1:D4} {2:D4} {3:D4}", rnd.Next(10000), rnd.Next(10000), rnd.Next(10000), rnd.Next(10000));
         }
+
+
 
         // Вспомогательный метод для генерации случайного имени
         public string GenerateRandomName()
@@ -137,12 +142,16 @@ namespace ClassLibraryLab10
             return names[rnd.Next(names.Length)];
         }
 
+
+
         // Вспомогательный метод для генерации случайного срока действия
         public string GenerateRandomTime()
         {
             // Генерируем случайный месяц (от 01 до 12) и год (от 00 до 99)
             return string.Format("{0:D2} {1:D2}", rnd.Next(1, 13), rnd.Next(0, 100));
         }
+
+
 
         public override bool Equals(object obj)
         {
