@@ -3,10 +3,11 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using ClassLibraryLabWork9;
 
 namespace ClassLibraryLab10
 {
-    public class JunCard : DebitCard
+    public class JunCard : DebitCard, IInit
     {
         private int cashBack; // Кешбек по карте
 
@@ -36,14 +37,14 @@ namespace ClassLibraryLab10
             CashBack = jCard.CashBack;
         }
 
-        // Реализация абстрактного метода для ввода информации
+        // Реализация метода Init интерфейса IInit
         public override void Init()
         {
             base.Init(); // Вызываем метод инициализации базового класса DebitCard
             CashBack = (int)InputUintNumber("Введите кешбек по вашей карте: ");
         }
 
-        // Метод формирования объектов класса с помощью ДСЧ
+        // Реализация метода RandomInit интерфейса IInit
         public override void RandomInit()
         {
             base.RandomInit(); // Вызываем метод инициализации базового класса DebitCard

@@ -31,6 +31,9 @@
     <WarningLevel>4</WarningLevel>
   </PropertyGroup>
   <ItemGroup>
+    <Reference Include="ClassLibraryLabWork9">
+      <HintPath>..\..\LabWork-v9\LabWork_v9\ClassLibraryLabWork9\obj\Debug\ClassLibraryLabWork9.dll</HintPath>
+    </Reference>
     <Reference Include="System" />
     <Reference Include="System.Core" />
     <Reference Include="System.Xml.Linq" />
@@ -42,10 +45,14 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="DebitCard.cs" />
+    <Compile Include="IInit.cs" />
     <Compile Include="JunCard.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="Сard.cs" />
     <Compile Include="СreditСard.cs" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="ClassDiagram1.cd" />
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
 </Project>

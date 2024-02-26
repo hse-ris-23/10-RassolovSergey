@@ -3,10 +3,11 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using ClassLibraryLabWork9;
 
 namespace ClassLibraryLab10
 {
-    public abstract class DebitCard : Card
+    public abstract class DebitCard : Card, IInit
     {
         private int balance; // Баланс владельца
 
@@ -36,22 +37,14 @@ namespace ClassLibraryLab10
         {
             Balance = balance;
         }
-        // Метод ввода информации об объектах класса с клавиатуры
+        // Реализация метода Init интерфейса IInit
         public override void Init()
         {
-            Console.WriteLine("Введите ID (используя пробелы): ");
-            Id = Console.ReadLine();
-
-            Console.WriteLine("Введите Имя (от 3 до 30 символов): ");
-            Name = Console.ReadLine();
-
-            Console.WriteLine("Введите Срок действия (в формате MM YY): ");
-            Time = Console.ReadLine();
-
+            base.Init(); // Вызываем метод инициализации базового класса Card
             Balance = (int)InputUintNumber("Введите ваш баланс: ");
         }
 
-        // Метод формирования объектов класса с помощью ДСЧ
+        // Реализация метода RandomInit интерфейса IInit
         public override void RandomInit()
         {
             base.RandomInit(); // Вызываем метод инициализации базового класса DebitCard

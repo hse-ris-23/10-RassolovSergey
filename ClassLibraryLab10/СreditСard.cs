@@ -3,10 +3,11 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using ClassLibraryLabWork9;
 
 namespace ClassLibraryLab10
 {
-    public class CreditCard : Card
+    public class CreditCard : Card, IInit
     {
         private int limit; // Лимит средств
         private int timeCredit; // Срок погашения
@@ -49,30 +50,18 @@ namespace ClassLibraryLab10
             Limit = credCard.Limit;
             TimeCredit = credCard.TimeCredit;
         }
-        // Метод ввода информации об объектах класса с клавиатуры
+        // Реализация метода Init интерфейса IInit
         public override void Init()
         {
-            Console.WriteLine("Введите ID (используя пробелы): ");
-            Id = Console.ReadLine();
-
-            Console.WriteLine("Введите Имя (от 3 до 30 символов): ");
-            Name = Console.ReadLine();
-
-            Console.WriteLine("Введите Срок действия (в формате MM YY): ");
-            Time = Console.ReadLine();
-
+            base.Init(); // Вызываем метод инициализации базового класса Card
             Limit = (int)InputUintNumber("Введите баланс вашей карты: ");
-
             TimeCredit = (int)InputUintNumber("Введите срок погашения кредита: ");
-            CreditCard credCard = new CreditCard(Id, Name, Time, Limit, TimeCredit);
         }
-        // Метод формирования объектов класса с помощью ДСЧ
+
+        // Реализация метода RandomInit интерфейса IInit
         public override void RandomInit()
         {
-            // Обновляем текущий экземпляр Card с случайными значениями
-            Id = GenerateRandomId();
-            Name = GenerateRandomName();
-            Time = GenerateRandomTime();
+            base.RandomInit(); // Вызываем метод инициализации базового класса Card
             Limit = GenerateRandomLimit();
             TimeCredit = GenerateRandomTimeCredit();
         }
@@ -91,7 +80,8 @@ namespace ClassLibraryLab10
         // Метод просмотра объектов класса
         public override void Show()
         {
-            Console.WriteLine($"ID: {Id} \t Имя: {Name} \t Срок действия: {Time} \t Лимит: {Limit} \t Срок погашения: {TimeCredit}");
+            base.Show();
+            Console.WriteLine($"\t Лимит: {Limit} \t Срок погашения: {TimeCredit}");
         }
     }
 }

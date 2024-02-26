@@ -4,6 +4,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using ClassLibraryLab10;
+using ClassLibraryLabWork9;
 
 namespace LabWork
 {

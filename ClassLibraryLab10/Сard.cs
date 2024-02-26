@@ -3,10 +3,11 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using ClassLibraryLabWork9;
 
 namespace ClassLibraryLab10
 {
-    public abstract class Card
+    public abstract class Card : IInit
     {
         // Вспомогательная функция Проверка ввода числа (Uint)
         protected static uint InputUintNumber(string msg)
@@ -26,10 +27,10 @@ namespace ClassLibraryLab10
 
 
 
-        public static Random rnd = new Random(1000); // Вспомогательный
-        private string id;      // ID владельца
-        private string name;    // Имя владельца
-        private string time;    // Срок действия
+        public static Random rnd = new Random(1000);// Вспомогательный
+        private string id;                          // ID владельца
+        private string name;                        // Имя владельца
+        private string time;                        // Срок действия
 
 
 
@@ -39,7 +40,7 @@ namespace ClassLibraryLab10
             get => id;
             set
             {
-                if (value.Length != 19 || (!value.All(char.IsDigit) & (value[4] != ' ' || value[9] != ' ' || value[14] != ' '))) // Проверка на длину, наличие только цифр и пробелов
+                if (value == null || value.Length != 19 || (!value.All(char.IsDigit) & (value[4] != ' ' || value[9] != ' ' || value[14] != ' '))) // Проверка на длину, наличие только цифр и пробелов
                 {
                     throw new Exception("Неверный формат id!");
                 }
@@ -55,7 +56,7 @@ namespace ClassLibraryLab10
             get => name;
             set
             {
-                if (value.Length > 30 || value.Length < 3)
+                if (value == null || value.Length > 30 || value.Length < 3)
                 {
                     throw new Exception("Невозможная длина имени");
                 }
@@ -70,7 +71,7 @@ namespace ClassLibraryLab10
             get => time;
             set
             {
-                if (value.Length != 5 & (!char.IsDigit(value[0]) || !char.IsDigit(value[1])) & (value[2] != ' ') & ((int)(value[0]+value[1]) >= 1) & ((int)(value[0]+value[1]) <= 12)) // Проверка на длину, наличие только цифр и пробела
+                if (value == null || value.Length != 5 & (!char.IsDigit(value[0]) || !char.IsDigit(value[1])) & (value[2] != ' ') & ((int)(value[0]+value[1]) >= 1) & ((int)(value[0]+value[1]) <= 12)) // Проверка на длину, наличие только цифр и пробела
                 {
                     throw new Exception("Неверный формат срока действия карты");
                 }
@@ -110,12 +111,12 @@ namespace ClassLibraryLab10
         // Метод просмотра объектов класса
         public virtual void Show()
         {
-            Console.WriteLine($"ID: {Id} \t Имя: {Name} \t Срок действия: {Time}");
+            Console.Write($"ID: {Id} \t Имя: {Name} \t Срок действия: {Time}");
         }
 
 
 
-        // Метод ввода информации об объектах класса с клавиатуры
+        // Реализация метода Init интерфейса IInit
         public virtual void Init()
         {
             Console.WriteLine("Введите ID (используя пробелы): ");
@@ -130,7 +131,7 @@ namespace ClassLibraryLab10
 
 
 
-        // Метод формирования объектов класса с помощью ДСЧ
+        // Реализация метода RandomInit интерфейса IInit
         public virtual void RandomInit()
         {
             Id = GenerateRandomId();
@@ -182,4 +183,3 @@ namespace ClassLibraryLab10
         }
     }
 }
-
