@@ -3,28 +3,54 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using System.Xml.Linq;
 
 namespace ClassLibraryLab9
 {
-    public class GeoCoordinates
+    public class GeoCoordinates : IInit9
     {
+        // Вспомогательная функция Проверка ввода числа (Uint)
+        protected static uint InputUintNumber(string msg)
+        {
+            Console.Write(msg);
+            bool isConvert;
+            uint number;
+            do
+            {
+                isConvert = uint.TryParse(Console.ReadLine(), out number);
+                Console.ForegroundColor = ConsoleColor.Red;
+                if (!isConvert) Console.WriteLine("Ошибка! Введите целое положительное число.");
+                Console.ForegroundColor = ConsoleColor.White;
+            } while (!isConvert);
+            return number;
+        }
+
+
         public static int objectCount = 0;
+
+
         //GeoCoordinates
-        private double latitude; // Широта
+        private double latitude;  // Широта
         private double longitude; // Долгота
-        private static Random rnd = new Random(); // Объект Random, созданный вне конструктора
-        private const double EarthRadius = 6371; // Радиус Земли в (км)
+        private static readonly Random rnd = new Random(); // Объект Random, созданный вне конструктора
+        private const double earthRadius = 6371;  // Радиус Земли в (км)
 
         //Конструктор без параметров
         public GeoCoordinates() { latitude = 0.01; longitude = 0.01; objectCount++; }
+
+
         //Конструктор с параметром (Конструктор с параметрами, использующий свойства для инициализации полей)
         public GeoCoordinates(double lat, double lon) { latitude = lat; longitude = lon; objectCount++; }
+
+
         // Конструктор с параметрами, заполняющий элементы случайными значениями
         public GeoCoordinates(Random rnd)
         {
-            latitude = rnd.NextDouble() * (90 - (-90)) + (-90); // Генерация случайной широты в диапазоне [-90, 90)
+            latitude = rnd.NextDouble() * (90 - (-90)) + (-90);     // Генерация случайной широты в диапазоне [-90, 90)
             longitude = rnd.NextDouble() * (180 - (-180)) + (-180); // Генерация случайной долготы в диапазоне [-180, 180)
         }
+        
+        
         // Конструктор копирования
         public GeoCoordinates(GeoCoordinates loc)
         {
@@ -32,6 +58,8 @@ namespace ClassLibraryLab9
             Longitude = loc.Longitude;
             objectCount++;
         }
+        
+        
         // Функция ввода широты
         public double Latitude
         {
@@ -48,6 +76,8 @@ namespace ClassLibraryLab9
                 }
             }
         }
+        
+        
         // Функция ввода Долготы
         public double Longitude
         {
@@ -64,10 +94,12 @@ namespace ClassLibraryLab9
                 }
             }
         }
-        public void Print()
+        public void Show()
         {
             Console.WriteLine($"Широта: {Latitude}, Долгота: {Longitude}");
         }
+        
+        
         // Метод позволяющий задать координыты вручную
         public GeoCoordinates CreateFromUserInput()
         {
@@ -89,12 +121,13 @@ namespace ClassLibraryLab9
             return loc;
         }
 
+        
         // Метод для получения количества созданных объектов
         public static int GetObjectCount()
         {
             return objectCount;
         }
-
+        
         // Поиск растояния (Static)
         public static double DistanceSt(GeoCoordinates Location1, GeoCoordinates Location2)
         {
@@ -111,11 +144,12 @@ namespace ClassLibraryLab9
             // Вычисляем расстояние с помощью формулы Гаверсинуса
             double a = Math.Sin(deltaLat / 2) * Math.Sin(deltaLat / 2) + Math.Cos(lat1) * Math.Cos(lat2) * Math.Sin(deltaLon / 2) * Math.Sin(deltaLon / 2);
             double c = 2 * Math.Atan2(Math.Sqrt(a), Math.Sqrt(1 - a));
-            double distance = EarthRadius * c;
+            double distance = earthRadius * c;
 
             return distance;
         }
 
+        
         // Преообразование в меридианы (Static)
         public static double DegreesToRadiansSt(double degrees)
         {
@@ -138,10 +172,11 @@ namespace ClassLibraryLab9
             // Вычисляем расстояние с помощью формулы Гаверсинуса
             double a = Math.Sin(deltaLat / 2) * Math.Sin(deltaLat / 2) + Math.Cos(lat1) * Math.Cos(lat2) * Math.Sin(deltaLon / 2) * Math.Sin(deltaLon / 2);
             double c = 2 * Math.Atan2(Math.Sqrt(a), Math.Sqrt(1 - a));
-            double distance = EarthRadius * c;
+            double distance = earthRadius * c;
 
             return distance;
         }
+        
         // Преобразование в меридианы (Метод класса)
         public double DegreesToRadians(double degrees)
         {
@@ -189,6 +224,23 @@ namespace ClassLibraryLab9
             return !(loc1.Longitude == loc2.Longitude);
         }
 
+        // Реализация метода Init интерфейса IInit
+        public virtual void Init()
+        {
+            Latitude = InputUintNumber("Введите значение Широты: ");   // Заполнение Широты
+            Longitude = InputUintNumber("Введите значение Долготы: "); // Заполнение Долготы
+        }
+
+        public virtual void RandomInit()
+        {
+            Latitude = rnd.NextDouble() * (90 - (-90)) + (-90);     // Генерация случайной широты в диапазоне [-90, 90)
+            Longitude = rnd.NextDouble() * (180 - (-180)) + (-180); // Генерация случайной долготы в диапазоне [-180, 180)
+        }
+        public override int GetHashCode()
+        {
+            // Используем XOR (^) для комбинирования хэш-кодов широты и долготы
+            return Latitude.GetHashCode() ^ Longitude.GetHashCode();
+        }
         public override bool Equals(object obj)
         {
             // Проверяем, является ли переданный объект null или не является объектом класса GeoCoordinates

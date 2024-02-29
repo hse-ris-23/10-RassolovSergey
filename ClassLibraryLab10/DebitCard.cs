@@ -6,7 +6,7 @@ using System.Threading.Tasks;
 
 namespace ClassLibraryLab10
 {
-    public abstract class DebitCard : Card, IInit
+    public  class DebitCard : Card, IInit10
     {
         private int balance; // Баланс владельца
 
@@ -56,6 +56,9 @@ namespace ClassLibraryLab10
             return (rnd.Next(1, 100000));
         }
         // Метод просмотра объектов класса
-        public abstract override void Show();
+        public override void Show()
+        {
+            Console.WriteLine($"ID: {Id} \t Имя: {Name} \t Срок действия: {Time} \t Баланс: {Balance}");
+        }
     }
 }

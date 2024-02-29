@@ -4,11 +4,14 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using ClassLibraryLab10;
+using ClassLibraryLab9;
+
 
 namespace LabWork
 {
-    internal class Program
+    internal class Program 
     {
+        static Random rnd = new Random();
         public static int AmountMonthlyRefunds(Card[] arr)
         {
             int srd = 0;            // Переменная для записи средней суммы
@@ -35,10 +38,10 @@ namespace LabWork
         {
             foreach (Card item in arr)
             {
-                string input = item.Time;         // Получаем срок действия карты
-                string[] time = input.Split(' '); // Разделяем строку на числа
-                int years = int.Parse(time[1]);   // Записываем год в переменную
-                int month = int.Parse(time[0]);   // Записываем месяц в переменную
+                string input = item.Time;               // Получаем срок действия карты
+                string[] time = input.Split(' ');       // Разделяем строку на числа
+                int years = int.Parse(time[1]);         // Записываем год в переменную
+                int month = int.Parse(time[0]);         // Записываем месяц в переменную
                 if ((month > 2 && years == 24) || (years< 24))  // Проверяем, если срок прошёл то выполняем
                 {
                     Console.Write(item.Name + " \t ");  // Имя Владельца
@@ -55,7 +58,7 @@ namespace LabWork
                 if (item is JunCard jun)
                 {
                     double cachBack = ((JunCard)item).CashBack; // Создаем переменную кешбека 
-                    int balance = ((JunCard)item).Balance; // Баланс? Молодежнгая карта должна зависить от дебетовой?
+                    int balance = ((JunCard)item).Balance;      // Баланс? Молодежнгая карта должна зависить от дебетовой?
                     sum += balance* (cachBack/100);
                 }
             }
@@ -178,8 +181,8 @@ namespace LabWork
                 //credCard5.Show();
             }
 
-            Card[] arr = new Card[20]; // Создаём список для хранение экземпляров классов
-            for (int i = 0; i < 20;) // Создаём 10 экземпляров класса
+            Card[] arr = new Card[20];  // Создаём список для хранение экземпляров классов
+            for (int i = 0; i < 20;)    // Создаём 10 экземпляров класса
             {
                 // Создаём и генерируем объект класса JunCard
                 arr[i] = new JunCard();
@@ -218,11 +221,18 @@ namespace LabWork
                 if (item is JunCard jun)
                 {
                     double cachBack = ((JunCard)item).CashBack; // Создаем переменную кешбека 
-                    int balance = ((JunCard)item).Balance; // Баланс? Молодежнгая карта должна зависить от дебетовой?
+                    int balance = ((JunCard)item).Balance;      // Баланс? Молодежнгая карта должна зависить от дебетовой?
                     sum += balance * (cachBack/100);
                 }
             }
             Console.WriteLine($"\nОбщая сумма возможного кешбека по всем действующим молодёжным картам: \t {sum}");
+
+
+            // Вывод массива из элементов Локаций
+            Console.WriteLine("(лабараторная работа №9) Массив объектов локаций:");
+            GeoCoordinatesArray geoArr = new GeoCoordinatesArray(20, rnd);
+            geoArr.Show();
+
         }
     }
 }

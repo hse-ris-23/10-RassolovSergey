@@ -6,7 +6,7 @@ using System.Threading.Tasks;
 
 namespace ClassLibraryLab10
 {
-    public abstract class Card : IInit
+    public abstract class Card : IInit10
     {
         // Вспомогательная функция Проверка ввода числа (Uint)
         protected static uint InputUintNumber(string msg)
@@ -179,6 +179,27 @@ namespace ClassLibraryLab10
 
             // Сравниваем значения широты текущего объекта с другим объектом GeoCoordinates
             return this.Id == other.Id && this.Name == other.Name && this.Time == other.Time;
+        }
+
+        public override int GetHashCode()
+        {
+            unchecked
+            {
+                // Инициализация начального хеш-кода
+                int hash = 17;
+
+                // Комбинирование хеш-кода поля Id с текущим хеш-кодом
+                hash = hash * 31 + Id.GetHashCode();
+
+                // Комбинирование хеш-кода поля Name с текущим хеш-кодом
+                hash = hash * 31 + Name.GetHashCode();
+
+                // Комбинирование хеш-кода поля Time с текущим хеш-кодом
+                hash = hash * 31 + Time.GetHashCode();
+
+                // Возвращение итогового хеш-кода
+                return hash;
+            }
         }
     }
 }

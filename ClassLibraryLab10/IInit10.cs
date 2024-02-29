@@ -6,7 +6,7 @@ using System.Threading.Tasks;
 
 namespace ClassLibraryLab10
 {
-    internal interface IInit
+    public interface IInit10
     {
         void Init();
         void RandomInit();

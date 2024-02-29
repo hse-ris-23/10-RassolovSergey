@@ -6,8 +6,9 @@ using System.Threading.Tasks;
 
 namespace ClassLibraryLab9
 {
-    public class GeoCoordinatesArray
+    public class GeoCoordinatesArray : GeoCoordinates, IInit9
     {
+        // Вспомогательная функция Проверка ввода числа (Uint)
         static int coutObj = 0;
         private GeoCoordinates[] coordinatesArray;
 
@@ -27,7 +28,7 @@ namespace ClassLibraryLab9
             coordinatesArray = new GeoCoordinates[count];
             for (int i = 0; i < count; i++)
             {
-                double latitude = rnd.NextDouble() * (90 - (-90)) + (-90); // Генерация случайной широты в диапазоне [-90, 90)
+                double latitude = rnd.NextDouble() * (90 - (-90)) + (-90);     // Генерация случайной широты в диапазоне [-90, 90)
                 double longitude = rnd.NextDouble() * (180 - (-180)) + (-180); // Генерация случайной долготы в диапазоне [-180, 180)
                 coordinatesArray[i] = new GeoCoordinates(latitude, longitude);
             }
@@ -77,13 +78,13 @@ namespace ClassLibraryLab9
         }
 
         // Метод для просмотра элементов массива
-        public void PrintLocations()
+        public new void Show()
         {
-            if (coordinatesArray.Length <= 0)
+            if (Length <= 0)
             {
                 throw new Exception("Массив пуст!");
             }
-            foreach (var coord in coordinatesArray)
+            foreach (GeoCoordinates coord in coordinatesArray)
             {
                 Console.WriteLine($"Долгота: {coord.Latitude}, Широта: {coord.Longitude}");
             }
@@ -124,10 +125,13 @@ namespace ClassLibraryLab9
             }
         }
         // Метод для получения количества созданных объектов
-        public static int GetObjectCount()
+        public static new int GetObjectCount()
         {
             return coutObj;
         }
+
+
+        // Поиск локации ближайшей к "Острову ноль"
         public void FindNearestToZeroIslandIndex()
         {
             if (coordinatesArray.Length == 0)
@@ -156,5 +160,48 @@ namespace ClassLibraryLab9
             }
             Console.WriteLine(nearestIndex);
         }
+
+        // Заполение вручную
+        public virtual new void Init()
+        {
+            int count = (int)InputUintNumber("Введите желаемую длину массива: "); // Считываем длинну масива
+            GeoCoordinatesArray geoArr = new GeoCoordinatesArray(1);
+            for (int i = 0; i < count; i++)
+            {
+                GeoCoordinates locRnd = new GeoCoordinates();
+                geoArr[i] = locRnd;
+            }
+        }
+
+        // Метод генерации рандомных значений
+        public virtual void RandomInit(Random rnd)
+        {
+            if (Length <= 0)
+            {
+                throw new ArgumentException("Количество элементов должно быть больше нуля.");
+            }
+            coordinatesArray = new GeoCoordinates[Length];
+            for (int i = 0; i < Length; i++)
+            {
+                double latitude = rnd.NextDouble() * (90 - (-90)) + (-90);     // Генерация случайной широты в диапазоне [-90, 90)
+                double longitude = rnd.NextDouble() * (180 - (-180)) + (-180); // Генерация случайной долготы в диапазоне [-180, 180)
+                coordinatesArray[i] = new GeoCoordinates(latitude, longitude);
+            }
+            coutObj++;
+        }
+
+        public override int GetHashCode()
+        {
+            int hashCode = 17; // Начальное значение хеш-кода
+
+            // Комбинируем хеш-коды элементов массива
+            foreach (GeoCoordinatesArray coord in coordinatesArray)
+            {
+                hashCode = hashCode * 31 + coord.GetHashCode();
+            }
+
+            return hashCode;
+        }
+
     }
 }

@@ -6,7 +6,7 @@ using System.Threading.Tasks;
 
 namespace ClassLibraryLab10
 {
-    public class CreditCard : Card, IInit
+    public class CreditCard : Card, IInit10
     {
         private int limit; // Лимит средств
         private int timeCredit; // Срок погашения

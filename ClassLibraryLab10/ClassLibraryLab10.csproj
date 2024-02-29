@@ -45,7 +45,7 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="DebitCard.cs" />
-    <Compile Include="IInit.cs" />
+    <Compile Include="IInit10.cs" />
     <Compile Include="JunCard.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="Сard.cs" />
