@@ -7,7 +7,7 @@ using System.Xml.Linq;
 
 namespace ClassLibraryLab9
 {
-    public class GeoCoordinates : IInit9
+    public class GeoCoordinates : IInit9, IComparable
     {
         // Вспомогательная функция Проверка ввода числа (Uint)
         protected static uint InputUintNumber(string msg)
@@ -252,6 +252,11 @@ namespace ClassLibraryLab9
 
             // Сравниваем значения широты текущего объекта с другим объектом GeoCoordinates
             return this.Latitude == other.Latitude && this.Longitude == other.Longitude;
+        }
+
+        public int CompareTo(object obj)
+        {
+            throw new NotImplementedException();
         }
     }
 }

@@ -6,7 +6,7 @@ using System.Threading.Tasks;
 
 namespace ClassLibraryLab10
 {
-    public abstract class Card : IInit10
+    public abstract class Card : IInit10, IComparable
     {
         // Вспомогательная функция Проверка ввода числа (Uint)
         protected static uint InputUintNumber(string msg)
@@ -163,7 +163,7 @@ namespace ClassLibraryLab10
         public string GenerateRandomTime()
         {
             // Генерируем случайный месяц (от 01 до 12) и год (от 00 до 99)
-            return string.Format("{0:D2} {1:D2}", rnd.Next(1, 13), rnd.Next(0, 100));
+            return string.Format("{0:D2} {1:D2}", rnd.Next(1, 13), rnd.Next(20, 35));
         }
 
 
@@ -200,6 +200,14 @@ namespace ClassLibraryLab10
                 // Возвращение итогового хеш-кода
                 return hash;
             }
+        }
+
+        public int CompareTo(object obj)
+        {
+            if (obj == null) { return -1; }
+            if (!(obj is  Card)) { return -1; }
+            Card card = obj as Card;
+            return String.Compare(this.id, card.Id);
         }
     }
 }

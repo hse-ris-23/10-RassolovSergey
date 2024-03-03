@@ -9,7 +9,7 @@ using ClassLibraryLab9;
 
 namespace LabWork
 {
-    internal class Program 
+    internal class Program
     {
         static Random rnd = new Random();
         public static int AmountMonthlyRefunds(Card[] arr)
@@ -48,7 +48,7 @@ namespace LabWork
                     item.Show();                        // Информация о карте (Для проверки)
                 }
             }
-}
+        }
         //Общая сумма возможного кешбека по всем действующим молодёжным картам
         public static void SumCashback(Card[] arr)
         {
@@ -66,7 +66,7 @@ namespace LabWork
         }
 
         static void Main(string[] args)
-                {
+        {
             //// Демонстрация класса Card
             {
                 //// Класс CARD
@@ -196,7 +196,7 @@ namespace LabWork
 
 
             // Выводим экземпляры класса (Виртуальными методами)
-            foreach (Card item in arr) 
+            foreach (Card item in arr)
             {
                 Console.Write(countCard + ")\t");
                 item.Show();
@@ -232,7 +232,76 @@ namespace LabWork
             Console.WriteLine("(лабараторная работа №9) Массив объектов локаций:");
             GeoCoordinatesArray geoArr = new GeoCoordinatesArray(20, rnd);
             geoArr.Show();
+            // Конец вывода
 
+            // Выводим экземпляры класса (Виртуальными методами)
+            countCard = 1;
+            Console.WriteLine("\n\nИсходный:\n");
+            foreach (Card item in arr)
+            {
+                Console.Write(countCard + ")\t");
+                item.Show();
+                countCard++;
+            }// Конец вывода
+
+
+            // Создаем элемент для поиска
+            Console.WriteLine("\nДобавленная новая карта на 1 слот списка\n");
+            DebitCard dcard = new DebitCard("1111 2222 3333 4444", "User", "03 26", 12300);
+            arr[0] = dcard;
+
+            // Сортировка по Имени
+            Array.Sort(arr);
+
+            // Выводим экземпляры класса
+            Console.WriteLine("\nОтсортированный по Id:\n");
+            countCard = 1;
+            foreach (Card item in arr)
+            {
+                Console.Write(countCard + ")\t");
+                item.Show();
+                countCard++;
+            }// Конец вывода
+
+            // Бинарный поиск по Id
+            Console.WriteLine("\nНомер карты в списке: ");
+            int pos = Array.BinarySearch(arr, new DebitCard("1111 2222 3333 4444", "User", "03 26", 12300)); // Поиск карты в массиве
+            if (pos < 0)
+            {
+                Console.WriteLine("Элемент не найден");
+            }
+            else
+            {
+                Console.WriteLine($"Элемент находится на {pos+1} позиции");
+            }
+
+
+
+            // Сортировка по сроку карты
+            Array.Sort(arr, new SortByTime());
+
+            // Выводим экземпляры класса (Виртуальными методами)
+            Console.WriteLine("\n\nОтсортированный по сроку карты:\n");
+            countCard = 1;
+            foreach (Card item in arr)
+            {
+                Console.Write(countCard + ")\t");
+                item.Show();
+                countCard++;
+            }// Конец вывода
+
+
+            // Бинарный поиск по Time
+            Console.WriteLine("\nНомер карты в списке: ");
+            pos = Array.BinarySearch(arr, new DebitCard("1111 2222 3333 4444", "User", "03 26", 12300), new SortByTime()); // Поиск карты в массиве
+            if (pos < 0)
+            {
+                Console.WriteLine("Элемент не найден");
+            }
+            else
+            {
+                Console.WriteLine($"Элемент находится на {pos+1} позиции");
+            }
         }
     }
 }
