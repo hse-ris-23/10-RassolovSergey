@@ -47,7 +47,6 @@
   <ItemGroup>
     <Compile Include="DebitCard.cs" />
     <Compile Include="IdNumber.cs" />
-    <Compile Include="NumberClass.cs" />
     <Compile Include="SortByTime.cs" />
     <Compile Include="IInit10.cs" />
     <Compile Include="JunCard.cs" />

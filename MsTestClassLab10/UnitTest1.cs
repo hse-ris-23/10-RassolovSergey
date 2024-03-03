@@ -2,6 +2,7 @@
 using System;
 using ClassLibraryLab10;
 using ClassLibraryLab9;
+using MsTestClassLab10;
 using System.IO;
 using System.Linq;
 
@@ -455,20 +456,282 @@ namespace MsTestClassLab10
             }
         }
         [TestMethod]
-        public void TestDebitCardCopyConstructor_ShouldCopyValues()
+        public void TestDebitCardGenerateRandomBalance_ShouldReturnValidBalance()
         {
             // Arrange
-            DebitCard originalDebitCard = new DebitCard("1234 5678 9012 3456", "John Doe", "12 25", 1, 5000);
+            DebitCard debitCard = new DebitCard();
 
             // Act
-            DebitCard copiedDebitCard = new DebitCard(originalDebitCard);
+            int randomBalance = debitCard.GenerateRandomBalance();
 
             // Assert
-            Assert.AreEqual(originalDebitCard.Id, copiedDebitCard.Id);
-            Assert.AreEqual(originalDebitCard.Name, copiedDebitCard.Name);
-            Assert.AreEqual(originalDebitCard.Time, copiedDebitCard.Time);
-            Assert.AreEqual(originalDebitCard.Balance, copiedDebitCard.Balance);
+            Assert.IsTrue(randomBalance >= 1 && randomBalance <= 100000);
+        }
+    }
+    [TestClass]
+    public class CreditCardTests
+    {
+        [TestMethod]
+        public void TestCreditCardLimit_SetValidLimit_ShouldSetLimit()
+        {
+            // Arrange
+            CreditCard creditCard = new CreditCard();
+
+            // Act
+            creditCard.Limit = 5000;
+
+            // Assert
+            Assert.AreEqual(5000, creditCard.Limit);
         }
 
+        [TestMethod]
+        [ExpectedException(typeof(Exception))]
+        public void TestCreditCardLimit_SetInvalidLimit_ShouldThrowException()
+        {
+            // Arrange
+            CreditCard creditCard = new CreditCard();
+
+            // Act and Assert
+            creditCard.Limit = 0;  // This should throw an exception
+        }
+
+        [TestMethod]
+        public void TestCreditCardTimeCredit_SetValidTimeCredit_ShouldSetTimeCredit()
+        {
+            // Arrange
+            CreditCard creditCard = new CreditCard();
+
+            // Act
+            creditCard.TimeCredit = 24;
+
+            // Assert
+            Assert.AreEqual(24, creditCard.TimeCredit);
+        }
+
+        [TestMethod]
+        [ExpectedException(typeof(Exception))]
+        public void TestCreditCardTimeCredit_SetInvalidTimeCredit_ShouldThrowException()
+        {
+            // Arrange
+            CreditCard creditCard = new CreditCard();
+
+            // Act and Assert
+            creditCard.TimeCredit = 0;  // This should throw an exception
+        }
+        [TestMethod]
+        public void TestCreditCardInit_InvalidInput_ShouldThrowException()
+        {
+            // Arrange
+            CreditCard creditCard = new CreditCard();
+            string invalidInput = "invalid input\n";
+
+            // Act
+            using (StringReader stringReader = new StringReader(invalidInput))
+            {
+                Console.SetIn(stringReader);
+
+                // Assert
+                Assert.ThrowsException<Exception>(() => creditCard.Init());
+            }
+        }
+        [TestMethod]
+        public void TestCreditCardRandomInit_ShouldInitializePropertiesRandomly()
+        {
+            // Arrange
+            CreditCard creditCard = new CreditCard();
+
+            // Act
+            creditCard.RandomInit();
+
+            // Assert
+            Assert.IsTrue(creditCard.Limit >= 10000 && creditCard.Limit <= 10000000);
+            Assert.IsTrue(creditCard.TimeCredit >= 1 && creditCard.TimeCredit <= 97);
+        }
+    }
+    [TestClass]
+    public class JunCardTests
+    {
+        [TestMethod]
+        public void TestJunCardRandomInitMethod_ShouldSetPropertiesCorrectly()
+        {
+            // Arrange
+            JunCard junCard = new JunCard();
+
+            // Act
+            junCard.RandomInit();
+
+            // Assert
+            Assert.IsNotNull(junCard.Id);
+            Assert.IsNotNull(junCard.Name);
+            Assert.IsNotNull(junCard.Time);
+            Assert.IsTrue(junCard.CashBack >= 1 && junCard.CashBack <= 100);
+        }
+        [TestMethod]
+        public void TestJunCardParameterizedConstructor_ShouldSetPropertiesCorrectly()
+        {
+            // Arrange
+            string id = "1111 1111 1111 1111";
+            string name = "John Doe";
+            string time = "12 25";
+            int num = 42;
+            int balance = 1000;
+            int cashBack = 5;
+
+            // Act
+            JunCard junCard = new JunCard(id, name, time, num, balance, cashBack);
+
+            // Assert
+            Assert.AreEqual(id, junCard.Id);
+            Assert.AreEqual(name, junCard.Name);
+            Assert.AreEqual(time, junCard.Time);
+            Assert.AreEqual(num, junCard.num.number);
+            Assert.AreEqual(balance, junCard.Balance);
+            Assert.AreEqual(cashBack, junCard.CashBack);
+        }
+    }
+    [TestClass]
+    public class SortByTimeTests
+    {
+        [TestMethod]
+        public void Compare_TwoCardsWithEarlierFirst_ShouldReturnNegative()
+        {
+            // Arrange
+            SortByTime sorter = new SortByTime();
+            Card card1 = new Card { Time = "01 22" };
+            Card card2 = new Card { Time = "03 23" };
+
+            // Act
+            int result = sorter.Compare(card1, card2);
+
+            // Assert
+            Assert.IsTrue(result < 0, "Expected negative value");
+        }
+
+        [TestMethod]
+        public void Compare_TwoCardsWithLaterFirst_ShouldReturnPositive()
+        {
+            // Arrange
+            SortByTime sorter = new SortByTime();
+            Card card1 = new Card { Time = "05 24" };
+            Card card2 = new Card { Time = "02 23" };
+
+            // Act
+            int result = sorter.Compare(card1, card2);
+
+            // Assert
+            Assert.IsTrue(result > 0, "Expected positive value");
+        }
+
+        [TestMethod]
+        public void Compare_TwoCardsWithSameTime_ShouldReturnZero()
+        {
+            // Arrange
+            SortByTime sorter = new SortByTime();
+            Card card1 = new Card { Time = "04 23" };
+            Card card2 = new Card { Time = "04 23" };
+
+            // Act
+            int result = sorter.Compare(card1, card2);
+
+            // Assert
+            Assert.AreEqual(0, result, "Expected zero");
+        }
+    }
+    [TestClass]
+    public class IdNumberTests
+    {
+        [TestMethod]
+        public void IdNumber_Constructor_ValidNumber_ShouldInitializeNumber()
+        {
+            // Arrange
+            int validNumber = 42;
+
+            // Act
+            IdNumber idNumber = new IdNumber(validNumber);
+
+            // Assert
+            Assert.AreEqual(validNumber, idNumber.number);
+        }
+
+        [TestMethod]
+        [ExpectedException(typeof(ArgumentException))]
+        public void IdNumber_Constructor_InvalidNumber_ShouldThrowArgumentException()
+        {
+            // Arrange
+            int invalidNumber = -5;
+
+            // Act
+            IdNumber idNumber = new IdNumber(invalidNumber);
+        }
+
+        [TestMethod]
+        public void IdNumber_ToString_ShouldReturnNumberAsString()
+        {
+            // Arrange
+            int number = 42;
+            IdNumber idNumber = new IdNumber(number);
+
+            // Act
+            string result = idNumber.ToString();
+
+            // Assert
+            Assert.AreEqual(number.ToString(), result);
+        }
+
+        [TestMethod]
+        public void IdNumber_Equals_SameNumber_ShouldReturnTrue()
+        {
+            // Arrange
+            int number = 42;
+            IdNumber idNumber1 = new IdNumber(number);
+            IdNumber idNumber2 = new IdNumber(number);
+
+            // Act
+            bool result = idNumber1.Equals(idNumber2);
+
+            // Assert
+            Assert.IsTrue(result);
+        }
+
+        [TestMethod]
+        public void IdNumber_Equals_DifferentNumber_ShouldReturnFalse()
+        {
+            // Arrange
+            IdNumber idNumber1 = new IdNumber(42);
+            IdNumber idNumber2 = new IdNumber(99);
+
+            // Act
+            bool result = idNumber1.Equals(idNumber2);
+
+            // Assert
+            Assert.IsFalse(result);
+        }
+
+        [TestMethod]
+        public void IdNumber_Equals_NullObject_ShouldReturnFalse()
+        {
+            // Arrange
+            IdNumber idNumber = new IdNumber(42);
+
+            // Act
+            bool result = idNumber.Equals(null);
+
+            // Assert
+            Assert.IsFalse(result);
+        }
+
+        [TestMethod]
+        public void IdNumber_Equals_NonIdNumberObject_ShouldReturnFalse()
+        {
+            // Arrange
+            IdNumber idNumber = new IdNumber(42);
+            object nonIdNumberObject = new object();
+
+            // Act
+            bool result = idNumber.Equals(nonIdNumberObject);
+
+            // Assert
+            Assert.IsFalse(result);
+        }
     }
 }
