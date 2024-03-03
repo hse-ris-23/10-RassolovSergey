@@ -38,16 +38,10 @@ namespace ClassLibraryLab10
             timeCredit = 12; // Срок на 12 месяцев
         }
         // Конструктор c параметром
-        public CreditCard(string id, string name, string time, int limit, int timeCredit) : base(id, name, time)
+        public CreditCard(string id, string name, string time, int num, int limit, int timeCredit) : base(id, name, time, num)
         {
             Limit = limit;
             TimeCredit = timeCredit;
-        }
-        // Конструктор копирования
-        public CreditCard(CreditCard credCard) : base(credCard)
-        {
-            Limit = credCard.Limit;
-            TimeCredit = credCard.TimeCredit;
         }
         // Реализация метода Init интерфейса IInit
         public override void Init()

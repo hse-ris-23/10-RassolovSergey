@@ -27,7 +27,7 @@ namespace ClassLibraryLab10
             Balance = 0;
         }
         // Конструктор c параметром
-        public DebitCard(string id, string name, string time, int balance) : base(id, name, time)
+        public DebitCard(string id, string name, string time, int num, int balance) : base(id, name, time, num)
         {
             Balance =  balance;
         }
@@ -59,6 +59,12 @@ namespace ClassLibraryLab10
         public override void Show()
         {
             Console.WriteLine($"ID: {Id} \t Имя: {Name} \t Срок действия: {Time} \t Баланс: {Balance}");
+        }
+
+        // Метод поверхностного копирования
+        public new object ShallowCopy()
+        {
+            return this.MemberwiseClone();
         }
     }
 }

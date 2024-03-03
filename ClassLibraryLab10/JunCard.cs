@@ -26,7 +26,7 @@ namespace ClassLibraryLab10
             CashBack = 5;
         }
         // Конструктор c параметром
-        public JunCard(string id, string name, string time, int balance, int cashBack) : base(id, name, time, balance)
+        public JunCard(string id, string name, string time, int num, int balance, int cashBack) : base(id, name, time, num, balance)
         {
             CashBack = cashBack;
         }

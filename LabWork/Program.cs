@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.IO;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
@@ -247,7 +248,7 @@ namespace LabWork
 
             // Создаем элемент для поиска
             Console.WriteLine("\nДобавленная новая карта на 1 слот списка\n");
-            DebitCard dcard = new DebitCard("1111 2222 3333 4444", "User", "03 26", 12300);
+            DebitCard dcard = new DebitCard("1111 2222 3333 4444", "User", "03 26", 1, 12300);
             arr[0] = dcard;
 
             // Сортировка по Имени
@@ -265,7 +266,7 @@ namespace LabWork
 
             // Бинарный поиск по Id
             Console.WriteLine("\nНомер карты в списке: ");
-            int pos = Array.BinarySearch(arr, new DebitCard("1111 2222 3333 4444", "User", "03 26", 12300)); // Поиск карты в массиве
+            int pos = Array.BinarySearch(arr, new DebitCard("1111 2222 3333 4444", "User", "03 26", 1, 12300)); // Поиск карты в массиве
             if (pos < 0)
             {
                 Console.WriteLine("Элемент не найден");
@@ -293,7 +294,7 @@ namespace LabWork
 
             // Бинарный поиск по Time
             Console.WriteLine("\nНомер карты в списке: ");
-            pos = Array.BinarySearch(arr, new DebitCard("1111 2222 3333 4444", "User", "03 26", 12300), new SortByTime()); // Поиск карты в массиве
+            pos = Array.BinarySearch(arr, new DebitCard("1111 2222 3333 4444", "User", "03 26", 1, 12300), new SortByTime()); // Поиск карты в массиве
             if (pos < 0)
             {
                 Console.WriteLine("Элемент не найден");
@@ -302,6 +303,27 @@ namespace LabWork
             {
                 Console.WriteLine($"Элемент находится на {pos+1} позиции");
             }
+
+            // Демонстрация копирования
+            DebitCard dCardOrig = new DebitCard();  // Создаем объект
+            dCardOrig.RandomInit();                 // Заполняем значениями ДСЧ
+            Console.WriteLine(dCardOrig);           // Выводим
+            DebitCard dCardCopy = (DebitCard)dCardOrig.ShallowCopy(); // Копируем
+            Console.WriteLine(dCardCopy);
+
+            // Демонстрация глубокого копирования
+            DebitCard dCardClone = dCardOrig.Clone() as DebitCard;
+            Console.WriteLine(dCardClone);
+
+            Console.WriteLine("После изменений:");
+            dCardCopy.Name = "copy" + dCardOrig.Name;
+            dCardCopy.num.number = 100;
+
+            dCardClone.Name = "clone" + dCardOrig.Name;
+            dCardClone.num.number = 200;
+            Console.WriteLine(dCardOrig);
+            Console.WriteLine(dCardCopy);
+            Console.WriteLine(dCardClone);
         }
     }
 }

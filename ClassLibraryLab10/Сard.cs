@@ -6,7 +6,7 @@ using System.Threading.Tasks;
 
 namespace ClassLibraryLab10
 {
-    public abstract class Card : IInit10, IComparable
+    public class Card : IInit10, IComparable, ICloneable
     {
         // Вспомогательная функция Проверка ввода числа (Uint)
         protected static uint InputUintNumber(string msg)
@@ -25,11 +25,12 @@ namespace ClassLibraryLab10
         }
 
 
-
+        public IdNumber num;
         public static Random rnd = new Random(1000);// Вспомогательный
         private string id;                          // ID владельца
         private string name;                        // Имя владельца
         private string time;                        // Срок действия
+        private DebitCard dCard;
 
 
 
@@ -86,31 +87,29 @@ namespace ClassLibraryLab10
             Id = "0000 0000 0000 0000";
             Name = "User Name";
             Time = "01 28";
+            num = new IdNumber(1);
         }
 
         // Конструктор с параметром
-        public Card(string id, string name, string time)
+        public Card(string id, string name, string time, int number)
         {
             Id = id;
             Name = name;
             Time = time;
+            num = new IdNumber(number);
         }
 
 
-        // Конструктор копирования
-        public Card(Card card)
+        public Card(DebitCard dCard)
         {
-            Id = card.Id;
-            Name = card.Name;
-            Time = card.Time;
+            this.dCard = dCard;
         }
-
 
 
         // Метод просмотра объектов класса
         public virtual void Show()
         {
-            Console.Write($"ID: {Id} \t Имя: {Name} \t Срок действия: {Time}");
+            Console.Write($"ID: {Id} \t Имя: {Name} \t Срок действия: {Time} \t Номер: {num}");
         }
 
 
@@ -126,6 +125,9 @@ namespace ClassLibraryLab10
 
             Console.WriteLine("Введите Срок действия (в формате MM YY): ");
             Time = Console.ReadLine();
+
+            Console.WriteLine("Введите номер объекта: ");
+            num.number = (int)InputUintNumber("Введите номер объекта:");
         }
 
 
@@ -136,6 +138,7 @@ namespace ClassLibraryLab10
             Id = GenerateRandomId();
             Name = GenerateRandomName();
             Time = GenerateRandomTime();
+            num.number = rnd.Next(1, 1000);
         }
 
 
@@ -147,7 +150,11 @@ namespace ClassLibraryLab10
             return string.Format("{0:D4} {1:D4} {2:D4} {3:D4}", rnd.Next(10000), rnd.Next(10000), rnd.Next(10000), rnd.Next(10000));
         }
 
-
+        // Преобразование в строку
+        public override string ToString()
+        {
+            return $"{id} {Name} {Time} {num}";
+        }
 
         // Вспомогательный метод для генерации случайного имени
         public string GenerateRandomName()
@@ -181,33 +188,25 @@ namespace ClassLibraryLab10
             return this.Id == other.Id && this.Name == other.Name && this.Time == other.Time;
         }
 
-        public override int GetHashCode()
-        {
-            unchecked
-            {
-                // Инициализация начального хеш-кода
-                int hash = 17;
-
-                // Комбинирование хеш-кода поля Id с текущим хеш-кодом
-                hash = hash * 31 + Id.GetHashCode();
-
-                // Комбинирование хеш-кода поля Name с текущим хеш-кодом
-                hash = hash * 31 + Name.GetHashCode();
-
-                // Комбинирование хеш-кода поля Time с текущим хеш-кодом
-                hash = hash * 31 + Time.GetHashCode();
-
-                // Возвращение итогового хеш-кода
-                return hash;
-            }
-        }
-
         public int CompareTo(object obj)
         {
             if (obj == null) { return -1; }
             if (!(obj is  Card)) { return -1; }
             Card card = obj as Card;
             return String.Compare(this.id, card.Id);
+        }
+
+
+        // Метод глубокого копирования
+        public object Clone()
+        {
+            return new Card(Id, Name, Time, num.number);
+        }
+
+        // Метод поверхностного копирования
+        public object ShallowCopy()
+        {
+            return this.MemberwiseClone();
         }
     }
 }
