@@ -47,8 +47,8 @@ namespace ClassLibraryLab10
         public override void Init()
         {
             base.Init(); // Вызываем метод инициализации базового класса Card
-            Limit = (int)InputUintNumber("Введите баланс вашей карты: ");
-            TimeCredit = (int)InputUintNumber("Введите срок погашения кредита: ");
+            Limit = (int)InputHelper.InputUintNumber("Введите баланс вашей карты: ");
+            TimeCredit = (int)InputHelper.InputUintNumber("Введите срок погашения кредита: ");
         }
 
         // Реализация метода RandomInit интерфейса IInit
@@ -60,13 +60,13 @@ namespace ClassLibraryLab10
         }
 
         // Вспомогательный метод для генерации случайного Лимита по кредиту
-        public virtual int GenerateRandomLimit()
+        private int GenerateRandomLimit()
         {
             return (rnd.Next(10000, 10000001)); // От 10.000 до 10млн
         }
 
         // Вспомогательный метод для генерации случайного срока погашения кредита
-        public int GenerateRandomTimeCredit()
+        private int GenerateRandomTimeCredit()
         {
             return (rnd.Next(1, 97)); // Максимальный срок 8 лет
         }
@@ -76,5 +76,13 @@ namespace ClassLibraryLab10
             base.Show();
             Console.WriteLine($"\t Лимит: {Limit} \t Срок погашения: {TimeCredit}");
         }
+
+        // Метод просмотра объектов класса (НЕ Виртуальный)
+        public new void Print()
+        {
+            base.Print();
+            Console.WriteLine($"\t Лимит: {Limit} \t Срок погашения: {TimeCredit}");
+        }
+
     }
 }

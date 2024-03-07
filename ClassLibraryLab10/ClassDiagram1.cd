@@ -3,7 +3,7 @@
   <Class Name="ClassLibraryLab10.DebitCard">
     <Position X="3.5" Y="3.75" Width="1.5" />
     <TypeIdentifier>
-      <HashCode>gAAAAAAAAACAAAAAAAgAAAAIAAAEAAAAAAACAAAAAAA=</HashCode>
+      <HashCode>gAAAAAAAAACAAAAAAAgAAAAIAAAEAAAAAAACABAAAAA=</HashCode>
       <FileName>DebitCard.cs</FileName>
     </TypeIdentifier>
     <Lollipop Position="0.2" />
@@ -19,7 +19,7 @@
   <Class Name="ClassLibraryLab10.Card">
     <Position X="5.5" Y="3.75" Width="1.5" />
     <TypeIdentifier>
-      <HashCode>AAAHAAAAAACAAAAAgAAAgISAACAEAAAAAAACAAAAAwA=</HashCode>
+      <HashCode>AAAHACAAAACAAAQEgAAAgISAACAEAAAAAAACABgAAxA=</HashCode>
       <FileName>Сard.cs</FileName>
     </TypeIdentifier>
     <Lollipop Position="0.2" />
@@ -32,11 +32,26 @@
     </TypeIdentifier>
     <Lollipop Position="0.2" />
   </Class>
-  <Interface Name="ClassLibraryLab10.IInit">
-    <Position X="5.5" Y="2" Width="1.5" />
+  <Class Name="ClassLibraryLab10.IdNumber">
+    <Position X="4.75" Y="1" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAAAAAAQAAEgAAAAAAAAAAAAAAAAAAAAAAAAAA=</HashCode>
+      <FileName>IdNumber.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="ClassLibraryLab10.SortByTime">
+    <Position X="6.75" Y="1.75" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAABAAAAAAAA=</HashCode>
+      <FileName>SortByTime.cs</FileName>
+    </TypeIdentifier>
+    <Lollipop Position="0.2" />
+  </Class>
+  <Interface Name="ClassLibraryLab10.IInit10">
+    <Position X="2.5" Y="1.75" Width="1.5" />
     <TypeIdentifier>
       <HashCode>AAAAAAAAAACAAAAAAAAAAAAAAAAAAAAAAAACAAAAAAA=</HashCode>
-      <FileName>IInit.cs</FileName>
+      <FileName>IInit10.cs</FileName>
     </TypeIdentifier>
   </Interface>
   <Font Name="Segoe UI" Size="9" />

@@ -8,10 +8,10 @@ namespace ClassLibraryLab10
 {
     public  class DebitCard : Card, IInit10
     {
-        private int balance; // Баланс владельца
+        private double balance; // Баланс владельца
 
         // Свойства для баланса
-        public int Balance
+        public double Balance
         {
             get => balance;
             set
@@ -34,13 +34,13 @@ namespace ClassLibraryLab10
         // Конструктор копирования
         public DebitCard(DebitCard dCard) : base(dCard)
         {
-            Balance = balance;
+            Balance = dCard.Balance;
         }
         // Реализация метода Init интерфейса IInit
         public override void Init()
         {
             base.Init(); // Вызываем метод инициализации базового класса Card
-            Balance = (int)InputUintNumber("Введите ваш баланс: ");
+            Balance = (int) InputHelper.InputUintNumber("Введите ваш баланс: ");
         }
 
         // Реализация метода RandomInit интерфейса IInit
@@ -51,14 +51,21 @@ namespace ClassLibraryLab10
         }
 
         // Вспомогательный метод для генерации случайного баланса
-        public int GenerateRandomBalance()
+        public double GenerateRandomBalance()
         {
-            return (rnd.Next(1, 100000));
+            return ((rnd.Next(1, 100000)) * rnd.NextDouble());
         }
         // Метод просмотра объектов класса
         public override void Show()
         {
             Console.WriteLine($"ID: {Id} \t Имя: {Name} \t Срок действия: {Time} \t Баланс: {Balance}");
+        }
+
+        // Метод просмотра объектов класса (НЕ Виртуальный)
+        public new void Print()
+        {
+            base.Print();
+            Console.WriteLine($"\t Баланс: {Balance}");
         }
 
         // Метод поверхностного копирования

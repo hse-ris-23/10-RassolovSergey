@@ -40,7 +40,7 @@ namespace LabWork
             foreach (Card item in arr)
             {
                 string input = item.Time;               // Получаем срок действия карты
-                string[] time = input.Split(' ');       // Разделяем строку на числа
+                string[] time = input.Split('/');       // Разделяем строку на числа
                 int years = int.Parse(time[1]);         // Записываем год в переменную
                 int month = int.Parse(time[0]);         // Записываем месяц в переменную
                 if ((month > 2 && years == 24) || (years< 24))  // Проверяем, если срок прошёл то выполняем
@@ -59,7 +59,7 @@ namespace LabWork
                 if (item is JunCard jun)
                 {
                     double cachBack = ((JunCard)item).CashBack; // Создаем переменную кешбека 
-                    int balance = ((JunCard)item).Balance;      // Баланс? Молодежнгая карта должна зависить от дебетовой?
+                    double balance = ((JunCard)item).Balance;      // Баланс? Молодежнгая карта должна зависить от дебетовой?
                     sum += balance* (cachBack/100);
                 }
             }
@@ -222,7 +222,7 @@ namespace LabWork
                 if (item is JunCard jun)
                 {
                     double cachBack = ((JunCard)item).CashBack; // Создаем переменную кешбека 
-                    int balance = ((JunCard)item).Balance;      // Баланс? Молодежнгая карта должна зависить от дебетовой?
+                    double balance = ((JunCard)item).Balance;      // Баланс? Молодежнгая карта должна зависить от дебетовой?
                     sum += balance * (cachBack/100);
                 }
             }
@@ -248,7 +248,7 @@ namespace LabWork
 
             // Создаем элемент для поиска
             Console.WriteLine("\nДобавленная новая карта на 1 слот списка\n");
-            DebitCard dcard = new DebitCard("1111 2222 3333 4444", "User", "03 26", 1, 12300);
+            DebitCard dcard = new DebitCard("1111 2222 3333 4444", "User", "03/26", 1, 12300);
             arr[0] = dcard;
 
             // Сортировка по Имени
@@ -266,7 +266,7 @@ namespace LabWork
 
             // Бинарный поиск по Id
             Console.WriteLine("\nНомер карты в списке: ");
-            int pos = Array.BinarySearch(arr, new DebitCard("1111 2222 3333 4444", "User", "03 26", 1, 12300)); // Поиск карты в массиве
+            int pos = Array.BinarySearch(arr, new DebitCard("1111 2222 3333 4444", "User", "03/26", 1, 12300)); // Поиск карты в массиве
             if (pos < 0)
             {
                 Console.WriteLine("Элемент не найден");
@@ -294,7 +294,7 @@ namespace LabWork
 
             // Бинарный поиск по Time
             Console.WriteLine("\nНомер карты в списке: ");
-            pos = Array.BinarySearch(arr, new DebitCard("1111 2222 3333 4444", "User", "03 26", 1, 12300), new SortByTime()); // Поиск карты в массиве
+            pos = Array.BinarySearch(arr, new DebitCard("1111 2222 3333 4444", "User", "03/26", 1, 12300), new SortByTime()); // Поиск карты в массиве
             if (pos < 0)
             {
                 Console.WriteLine("Элемент не найден");

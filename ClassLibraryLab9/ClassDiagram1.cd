@@ -1,0 +1,27 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<ClassDiagram MajorVersion="1" MinorVersion="1">
+  <Class Name="ClassLibraryLab9.GeoCoordinates">
+    <Position X="5.5" Y="2.5" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAgEYAAAAECAAAQAgAFIoggADgAEAIBAAAACAAAAAiA=</HashCode>
+      <FileName>GeoCoordinates.cs</FileName>
+    </TypeIdentifier>
+    <Lollipop Position="0.2" />
+  </Class>
+  <Class Name="ClassLibraryLab9.GeoCoordinatesArray">
+    <Position X="3.25" Y="4.5" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAQBAAAAACAAAAASAAAAgBAAgAEAIAAAAACAAAAAAA=</HashCode>
+      <FileName>GeoCoordinatesArray.cs</FileName>
+    </TypeIdentifier>
+    <Lollipop Position="0.2" />
+  </Class>
+  <Interface Name="ClassLibraryLab9.IInit9">
+    <Position X="3.25" Y="2.25" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAAAACAAAAAAAAAAAAAAAAAAAAAAAACAAAAAAA=</HashCode>
+      <FileName>IInit9.cs</FileName>
+    </TypeIdentifier>
+  </Interface>
+  <Font Name="Segoe UI" Size="9" />
+</ClassDiagram>

@@ -1,9 +1,9 @@
 ﻿<?xml version="1.0" encoding="utf-8"?>
 <ClassDiagram MajorVersion="1" MinorVersion="1">
-  <Class Name="LabWork.Program" Collapsed="true">
-    <Position X="0.5" Y="0.5" Width="1.5" />
+  <Class Name="LabWork.Program">
+    <Position X="4.25" Y="1.75" Width="1.5" />
     <TypeIdentifier>
-      <HashCode>AAAAAAAAABAAAGAAAAAAAAAAAAAAAAAAAAAABAAAAAA=</HashCode>
+      <HashCode>AAAEAAAAABAAAGAAAAAAAAAAAAAAAAAAAAAABAAAAAA=</HashCode>
       <FileName>Program.cs</FileName>
     </TypeIdentifier>
   </Class>

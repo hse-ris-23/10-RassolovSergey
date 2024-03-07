@@ -8,15 +8,15 @@ namespace ClassLibraryLab10
 {
     public class JunCard : DebitCard, IInit10
     {
-        private int cashBack; // Кешбек по карте
+        private double cashBack; // Кешбек по карте
 
         // Свойства кешбека
-        public int CashBack
+        public double CashBack
         {
             get => cashBack;
             set
             {
-                if (value < 1 || value > 100) { throw new Exception("Невозможный процент кешбека"); }
+                if (value < 0 || value > 100) { throw new Exception("Невозможный процент кешбека"); }
                 cashBack = value;
             }
         }
@@ -40,7 +40,7 @@ namespace ClassLibraryLab10
         public override void Init()
         {
             base.Init(); // Вызываем метод инициализации базового класса DebitCard
-            CashBack = (int)InputUintNumber("Введите кешбек по вашей карте: ");
+            CashBack = (int)InputHelper.InputUintNumber("Введите кешбек по вашей карте: ");
         }
 
         // Реализация метода RandomInit интерфейса IInit
@@ -51,9 +51,9 @@ namespace ClassLibraryLab10
         }
 
         // Вспомогательный метод для генерации случайного процента кешбека
-        public int GenerateRandomTimeCashBack()
+        public double GenerateRandomTimeCashBack()
         {
-            return rnd.Next(1, 100);
+            return rnd.Next(1, 100) * rnd.NextDouble();
         }
 
         // Метод просмотра объектов класса
@@ -61,5 +61,13 @@ namespace ClassLibraryLab10
         {
             Console.WriteLine($"ID: {Id} \t Имя: {Name} \t Срок действия: {Time} \t Баланс: {Balance}       \t Кешбек: {CashBack}%");
         }
+
+        // Метод просмотра объектов класса (НЕ Виртуальный)
+        public new void Print()
+        {
+            base.Print();
+            Console.WriteLine($"\t Кешбек: {CashBack}%");
+        }
+
     }
 }

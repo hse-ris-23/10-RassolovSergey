@@ -13,12 +13,11 @@ namespace ClassLibraryLab10
         {
             if (number < 0)
             {
-                throw new ArgumentException("Number cannot be less than 0.");
+                throw new ArgumentException("Число не может быть меньше 0.");
             }
 
             this.number = number;
         }
-
         public override string ToString()
         {
             return number.ToString();
@@ -32,5 +31,7 @@ namespace ClassLibraryLab10
             }
             return false;
         }
+
     }
 }
+

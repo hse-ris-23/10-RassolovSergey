@@ -1,0 +1,56 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<ClassDiagram MajorVersion="1" MinorVersion="1">
+  <Class Name="MsTestClassLab10.UnitTest1">
+    <Position X="5.25" Y="2.25" Width="1.5" />
+    <Compartments>
+      <Compartment Name="Nested Types" Collapsed="false" />
+    </Compartments>
+    <NestedTypes>
+      <Class Name="MsTestClassLab10.UnitTest1.CardGenerateRandomIdMethodTests">
+        <TypeIdentifier>
+          <NewMemberFileName>UnitTest1.cs</NewMemberFileName>
+        </TypeIdentifier>
+      </Class>
+    </NestedTypes>
+    <TypeIdentifier>
+      <HashCode>AAQAAQEACACAAAEAAEAAAGAgQAAAACEAQARAAAAAIAI=</HashCode>
+      <FileName>UnitTest1.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="MsTestClassLab10.DebitCardTests">
+    <Position X="3.5" Y="4" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAQAAAAAAIAAAAAAAAAAAAQAAAIAQAAAAAQAAEAAAAA=</HashCode>
+      <FileName>UnitTest1.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="MsTestClassLab10.CreditCardTests">
+    <Position X="1.75" Y="3.75" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AkAAAAAAAAAAAEAAAADAAAAAAAAAAEAAAAAAAAAAAAA=</HashCode>
+      <FileName>UnitTest1.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="MsTestClassLab10.JunCardTests">
+    <Position X="1.75" Y="2.25" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAIAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA=</HashCode>
+      <FileName>UnitTest1.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="MsTestClassLab10.SortByTimeTests">
+    <Position X="3.5" Y="2.25" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAEAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAUAA=</HashCode>
+      <FileName>UnitTest1.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="MsTestClassLab10.IdNumberTests">
+    <Position X="7" Y="3.25" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>EAAAAEAAAAAAAAAAQAAEAAIAAAACAAAAAAIAAAAAAAA=</HashCode>
+      <FileName>UnitTest1.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Font Name="Segoe UI" Size="9" />
+</ClassDiagram>

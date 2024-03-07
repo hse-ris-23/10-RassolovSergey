@@ -8,22 +8,6 @@ namespace ClassLibraryLab10
 {
     public class Card : IInit10, IComparable, ICloneable
     {
-        // Вспомогательная функция Проверка ввода числа (Uint)
-        protected static uint InputUintNumber(string msg)
-        {
-            Console.Write(msg);
-            bool isConvert;
-            uint number;
-            do
-            {
-                isConvert = uint.TryParse(Console.ReadLine(), out number);
-                Console.ForegroundColor = ConsoleColor.Red;
-                if (!isConvert) Console.WriteLine("Ошибка! Введите целое положительное число.");
-                Console.ForegroundColor = ConsoleColor.White;
-            } while (!isConvert);
-            return number;
-        }
-
 
         public IdNumber num;
         public static Random rnd = new Random(1000);// Вспомогательный
@@ -71,7 +55,7 @@ namespace ClassLibraryLab10
             get => time;
             set
             {
-                if (value == null || value.Length != 5 & (!char.IsDigit(value[0]) || !char.IsDigit(value[1])) & (value[2] != ' ') & ((int)(value[0]+value[1]) >= 1) & ((int)(value[0]+value[1]) <= 12)) // Проверка на длину, наличие только цифр и пробела
+                if (value == null || value.Length != 5 & (!char.IsDigit(value[0]) || !char.IsDigit(value[1])) & (value[2] != '/') & ((int)(value[0]+value[1]) >= 1) & ((int)(value[0]+value[1]) <= 12)) // Проверка на длину, наличие только цифр и пробела
                 {
                     throw new Exception("Неверный формат срока действия карты");
                 }
@@ -86,7 +70,7 @@ namespace ClassLibraryLab10
         {
             Id = "0000 0000 0000 0000";
             Name = "User Name";
-            Time = "01 28";
+            Time = "01/28";
             num = new IdNumber(1);
         }
 
@@ -106,12 +90,27 @@ namespace ClassLibraryLab10
         }
 
 
-        // Метод просмотра объектов класса
+        // Метод просмотра объектов класса (Виртуальный)
         public virtual void Show()
         {
             Console.Write($"ID: {Id} \t Имя: {Name} \t Срок действия: {Time} \t Номер: {num}");
         }
 
+
+        // Метод просмотра объектов класса (НЕ Виртуальный)
+        public void Print()
+        {
+            Console.WriteLine($"ID: {Id} \t Имя: {Name} \t Срок действия: {Time} \t Номер: {num}");
+        }
+
+
+
+
+        // Метод просмотра объектов класса
+        public void ShownoVirtual()
+        {
+            Console.WriteLine($"ID: {Id} \t Имя: {Name} \t Срок действия: {Time} \t Номер: {num}");
+        }
 
 
         // Реализация метода Init интерфейса IInit
@@ -127,7 +126,7 @@ namespace ClassLibraryLab10
             Time = Console.ReadLine();
 
             Console.WriteLine("Введите номер объекта: ");
-            num.number = (int)InputUintNumber("Введите номер объекта:");
+            num.number = (int)InputHelper.InputUintNumber("Введите номер объекта:");
         }
 
 
@@ -170,7 +169,7 @@ namespace ClassLibraryLab10
         public string GenerateRandomTime()
         {
             // Генерируем случайный месяц (от 01 до 12) и год (от 00 до 99)
-            return string.Format("{0:D2} {1:D2}", rnd.Next(1, 13), rnd.Next(20, 35));
+            return string.Format("{0:D2}/{1:D2}", rnd.Next(1, 13), rnd.Next(20, 35));
         }
 
 

@@ -462,7 +462,7 @@ namespace MsTestClassLab10
             DebitCard debitCard = new DebitCard();
 
             // Act
-            int randomBalance = debitCard.GenerateRandomBalance();
+            double randomBalance = debitCard.GenerateRandomBalance();
 
             // Assert
             Assert.IsTrue(randomBalance >= 1 && randomBalance <= 100000);
