@@ -11,5 +11,5 @@ namespace ClassLibraryLab9
         void Init();
         void RandomInit();
     }
-    
+
 }

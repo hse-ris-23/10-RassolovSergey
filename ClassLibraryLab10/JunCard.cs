@@ -59,7 +59,8 @@ namespace ClassLibraryLab10
         // Метод просмотра объектов класса
         public override void Show()
         {
-            Console.WriteLine($"ID: {Id} \t Имя: {Name} \t Срок действия: {Time} \t Баланс: {Balance}       \t Кешбек: {CashBack}%");
+            base.Show();
+            Console.WriteLine($"\t Кешбек: {CashBack}%");
         }
 
         // Метод просмотра объектов класса (НЕ Виртуальный)
@@ -67,6 +68,20 @@ namespace ClassLibraryLab10
         {
             base.Print();
             Console.WriteLine($"\t Кешбек: {CashBack}%");
+        }
+        public override bool Equals(object obj)
+        {
+            if (obj == null || GetType() != obj.GetType())
+                return false;
+
+            // Вызываем Equals из базового класса для проверки полей базового класса
+            if (!base.Equals(obj))
+                return false;
+
+            JunCard otherJunCard = (JunCard)obj;
+
+            // Сравниваем поля текущего объекта с полями другого объекта
+            return CashBack == otherJunCard.CashBack;
         }
 
     }

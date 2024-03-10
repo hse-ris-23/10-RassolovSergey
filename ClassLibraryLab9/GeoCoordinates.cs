@@ -49,8 +49,8 @@ namespace ClassLibraryLab9
             latitude = rnd.NextDouble() * (90 - (-90)) + (-90);     // Генерация случайной широты в диапазоне [-90, 90)
             longitude = rnd.NextDouble() * (180 - (-180)) + (-180); // Генерация случайной долготы в диапазоне [-180, 180)
         }
-        
-        
+
+
         // Конструктор копирования
         public GeoCoordinates(GeoCoordinates loc)
         {
@@ -58,8 +58,8 @@ namespace ClassLibraryLab9
             Longitude = loc.Longitude;
             objectCount++;
         }
-        
-        
+
+
         // Функция ввода широты
         public double Latitude
         {
@@ -76,8 +76,8 @@ namespace ClassLibraryLab9
                 }
             }
         }
-        
-        
+
+
         // Функция ввода Долготы
         public double Longitude
         {
@@ -98,8 +98,8 @@ namespace ClassLibraryLab9
         {
             Console.WriteLine($"Широта: {Latitude}, Долгота: {Longitude}");
         }
-        
-        
+
+
         // Метод позволяющий задать координыты вручную
         public GeoCoordinates CreateFromUserInput()
         {
@@ -121,13 +121,13 @@ namespace ClassLibraryLab9
             return loc;
         }
 
-        
+
         // Метод для получения количества созданных объектов
         public static int GetObjectCount()
         {
             return objectCount;
         }
-        
+
         // Поиск растояния (Static)
         public static double DistanceSt(GeoCoordinates Location1, GeoCoordinates Location2)
         {
@@ -149,7 +149,7 @@ namespace ClassLibraryLab9
             return distance;
         }
 
-        
+
         // Преообразование в меридианы (Static)
         public static double DegreesToRadiansSt(double degrees)
         {
@@ -176,7 +176,7 @@ namespace ClassLibraryLab9
 
             return distance;
         }
-        
+
         // Преобразование в меридианы (Метод класса)
         public double DegreesToRadians(double degrees)
         {

@@ -104,15 +104,6 @@ namespace ClassLibraryLab10
         }
 
 
-
-
-        // Метод просмотра объектов класса
-        public void ShownoVirtual()
-        {
-            Console.WriteLine($"ID: {Id} \t Имя: {Name} \t Срок действия: {Time} \t Номер: {num}");
-        }
-
-
         // Реализация метода Init интерфейса IInit
         public virtual void Init()
         {
@@ -207,5 +198,7 @@ namespace ClassLibraryLab10
         {
             return this.MemberwiseClone();
         }
+
+
     }
 }

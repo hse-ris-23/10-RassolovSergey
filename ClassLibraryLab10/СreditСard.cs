@@ -83,6 +83,20 @@ namespace ClassLibraryLab10
             base.Print();
             Console.WriteLine($"\t Лимит: {Limit} \t Срок погашения: {TimeCredit}");
         }
+        public override bool Equals(object obj)
+        {
+            if (obj == null || GetType() != obj.GetType())
+                return false;
+
+            // Вызываем Equals из базового класса для проверки полей базового класса
+            if (!base.Equals(obj))
+                return false;
+
+            CreditCard otherCreditCard = (CreditCard)obj;
+
+            // Сравниваем поля текущего объекта с полями другого объекта
+            return Limit == otherCreditCard.Limit && TimeCredit == otherCreditCard.TimeCredit;
+        }
 
     }
 }

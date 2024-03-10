@@ -35,8 +35,10 @@ namespace LabWork
 
 
         // Владельцы карт с истёкшим сроком действия.
-        public static void HoldersExCards(Card[] arr)
+        public static string[] HoldersExCards(Card[] arr)
         {
+            string[] holders = new string[20];
+            byte counter = 0;
             foreach (Card item in arr)
             {
                 string input = item.Time;               // Получаем срок действия карты
@@ -45,13 +47,15 @@ namespace LabWork
                 int month = int.Parse(time[0]);         // Записываем месяц в переменную
                 if ((month > 2 && years == 24) || (years< 24))  // Проверяем, если срок прошёл то выполняем
                 {
-                    Console.Write(item.Name + " \t ");  // Имя Владельца
-                    item.Show();                        // Информация о карте (Для проверки)
+
+                    holders[counter] = (item.Name + " \t ");
+                    counter++;
                 }
             }
+            return holders;
         }
         //Общая сумма возможного кешбека по всем действующим молодёжным картам
-        public static void SumCashback(Card[] arr)
+        public static double SumCashback(Card[] arr)
         {
             double sum = 0;
             foreach (Card item in arr)
@@ -63,7 +67,7 @@ namespace LabWork
                     sum += balance* (cachBack/100);
                 }
             }
-            Console.WriteLine($"\nОбщая сумма возможного кешбека по всем действующим молодёжным картам: \t {sum}");
+            return sum;
         }
 
         static void Main(string[] args)
@@ -183,7 +187,7 @@ namespace LabWork
             }
 
             Card[] arr = new Card[20];  // Создаём список для хранение экземпляров классов
-            for (int i = 0; i < 20;)    // Создаём 10 экземпляров класса
+            for (int i = 0; i < 20;)    // Создаём 20 экземпляров класса
             {
                 // Создаём и генерируем объект класса JunCard
                 arr[i] = new JunCard();
@@ -212,7 +216,10 @@ namespace LabWork
             // Владельцы карт с истёкшим сроком действия.
             Console.WriteLine("\nВладельцы просроченных карт:");
             Console.WriteLine("(Дата задана сроком написания: 25.02.24)");
-            HoldersExCards(arr);
+            foreach (var elem in HoldersExCards(arr))
+            {
+                Console.WriteLine(elem);
+            }
 
 
             //Общая сумма возможного кешбека по всем действующим молодёжным картам.
@@ -304,16 +311,17 @@ namespace LabWork
                 Console.WriteLine($"Элемент находится на {pos+1} позиции");
             }
 
+
             // Демонстрация копирования
             DebitCard dCardOrig = new DebitCard();  // Создаем объект
             dCardOrig.RandomInit();                 // Заполняем значениями ДСЧ
-            Console.WriteLine(dCardOrig);           // Выводим
+            Console.WriteLine("Orig\t" + dCardOrig);           // Выводим
             DebitCard dCardCopy = (DebitCard)dCardOrig.ShallowCopy(); // Копируем
-            Console.WriteLine(dCardCopy);
+            Console.WriteLine("Copy\t" + dCardCopy);
 
             // Демонстрация глубокого копирования
             DebitCard dCardClone = dCardOrig.Clone() as DebitCard;
-            Console.WriteLine(dCardClone);
+            Console.WriteLine("Clone\t" + dCardClone);
 
             Console.WriteLine("После изменений:");
             dCardCopy.Name = "copy" + dCardOrig.Name;

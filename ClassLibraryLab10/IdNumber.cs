@@ -31,7 +31,5 @@ namespace ClassLibraryLab10
             }
             return false;
         }
-
     }
 }
-

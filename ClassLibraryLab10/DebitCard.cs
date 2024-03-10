@@ -6,7 +6,7 @@ using System.Threading.Tasks;
 
 namespace ClassLibraryLab10
 {
-    public  class DebitCard : Card, IInit10
+    public class DebitCard : Card, IInit10, ICloneable
     {
         private double balance; // Баланс владельца
 
@@ -27,7 +27,7 @@ namespace ClassLibraryLab10
             Balance = 0;
         }
         // Конструктор c параметром
-        public DebitCard(string id, string name, string time, int num, int balance) : base(id, name, time, num)
+        public DebitCard(string id, string name, string time, int num, double balance) : base(id, name, time, num)
         {
             Balance =  balance;
         }
@@ -40,7 +40,7 @@ namespace ClassLibraryLab10
         public override void Init()
         {
             base.Init(); // Вызываем метод инициализации базового класса Card
-            Balance = (int) InputHelper.InputUintNumber("Введите ваш баланс: ");
+            Balance = (int)InputHelper.InputUintNumber("Введите ваш баланс: ");
         }
 
         // Реализация метода RandomInit интерфейса IInit
@@ -58,7 +58,8 @@ namespace ClassLibraryLab10
         // Метод просмотра объектов класса
         public override void Show()
         {
-            Console.WriteLine($"ID: {Id} \t Имя: {Name} \t Срок действия: {Time} \t Баланс: {Balance}");
+            base.Show();
+            Console.WriteLine($"\tБаланс: {Balance}");
         }
 
         // Метод просмотра объектов класса (НЕ Виртуальный)
@@ -72,6 +73,26 @@ namespace ClassLibraryLab10
         public new object ShallowCopy()
         {
             return this.MemberwiseClone();
+        }
+
+        public override bool Equals(object obj)
+        {
+            if (obj == null || GetType() != obj.GetType())
+                return false;
+
+            // Вызываем Equals из базового класса для проверки полей базового класса
+            if (!base.Equals(obj))
+                return false;
+
+            DebitCard otherDebitCard = (DebitCard)obj;
+
+            // Сравниваем поля текущего объекта с полями другого объекта
+            return Balance == otherDebitCard.Balance;
+        }
+        // Метод глубокого копирования
+        public object Clone()
+        {
+            return new DebitCard(Id, Name, Time, num.number, Balance);
         }
     }
 }
