@@ -1,7 +1,6 @@
 ﻿using Microsoft.VisualStudio.TestTools.UnitTesting;
 using System;
 using ClassLibraryLab10;
-using ClassLibraryLab9;
 using MsTestClassLab10;
 using System.IO;
 using System.Linq;
@@ -9,13 +8,13 @@ using System.Linq;
 namespace MsTestClassLab10
 {
     [TestClass]
-    public class UnitTest1
+    public class UnitTestClassLibrary
     {
         [TestMethod]
         public void TestValidId()
         {
             // Arrange
-            var card = new Card();
+            Card card = new Card();
 
             // Act
             card.Id = "1234 5678 9012 3456";
@@ -29,7 +28,7 @@ namespace MsTestClassLab10
         public void TestInvalidId()
         {
             // Arrange
-            var card = new Card();
+            Card card = new Card();
 
             // Act
             card.Id = "invalid_id";

@@ -49,7 +49,7 @@
     <Reference Include="System.Core" />
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="UnitTest1.cs" />
+    <Compile Include="UnitTestClassLibrary.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
   <ItemGroup>
@@ -60,10 +60,6 @@
     <ProjectReference Include="..\ClassLibraryLab10\ClassLibraryLab10.csproj">
       <Project>{e8b67f68-1439-40b6-935c-8e9bef242ad9}</Project>
       <Name>ClassLibraryLab10</Name>
-    </ProjectReference>
-    <ProjectReference Include="..\ClassLibraryLab9\ClassLibraryLab9.csproj">
-      <Project>{af3e99e4-8599-408d-a721-3e4a83bcb123}</Project>
-      <Name>ClassLibraryLab9</Name>
     </ProjectReference>
   </ItemGroup>
   <Import Project="$(VSToolsPath)\TeamTest\Microsoft.TestTools.targets" Condition="Exists('$(VSToolsPath)\TeamTest\Microsoft.TestTools.targets')" />

@@ -62,10 +62,6 @@
       <Project>{e8b67f68-1439-40b6-935c-8e9bef242ad9}</Project>
       <Name>ClassLibraryLab10</Name>
     </ProjectReference>
-    <ProjectReference Include="..\ClassLibraryLab9\ClassLibraryLab9.csproj">
-      <Project>{af3e99e4-8599-408d-a721-3e4a83bcb123}</Project>
-      <Name>ClassLibraryLab9</Name>
-    </ProjectReference>
     <ProjectReference Include="..\MsTestClassLab10\MsTestClassLab10.csproj">
       <Project>{fca289cb-84f6-4944-a85e-608de50598c6}</Project>
       <Name>MsTestClassLab10</Name>

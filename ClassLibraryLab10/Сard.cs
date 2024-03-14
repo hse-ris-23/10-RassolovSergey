@@ -6,16 +6,15 @@ using System.Threading.Tasks;
 
 namespace ClassLibraryLab10
 {
-    public class Card : IInit10, IComparable, ICloneable
+    public class Card : IInit, IComparable, ICloneable
     {
-
+        public static int CardCount = 0;
         public IdNumber num;
         public static Random rnd = new Random(1000);// Вспомогательный
         private string id;                          // ID владельца
         private string name;                        // Имя владельца
         private string time;                        // Срок действия
-        private DebitCard dCard;
-
+        private Card mainCard;
 
 
         // Свойства для id
@@ -32,7 +31,6 @@ namespace ClassLibraryLab10
                 id = value;
             }
         }
-
 
         // Свойства для name
         public string Name
@@ -64,7 +62,6 @@ namespace ClassLibraryLab10
             }
         }
 
-
         // Конструктор без параметра
         public Card()
         {
@@ -72,6 +69,7 @@ namespace ClassLibraryLab10
             Name = "User Name";
             Time = "01/28";
             num = new IdNumber(1);
+            CardCount++;
         }
 
         // Конструктор с параметром
@@ -81,14 +79,27 @@ namespace ClassLibraryLab10
             Name = name;
             Time = time;
             num = new IdNumber(number);
+            CardCount++;
         }
 
-
-        public Card(DebitCard dCard)
+        // Конструктор копирования
+        public Card(Card mainCard)
         {
-            this.dCard = dCard;
+            this.mainCard = mainCard;
         }
 
+        // Метод глубокого копирования
+        public object Clone()
+        {
+            CardCount++;
+            return new Card(Id, Name, Time, num.number);
+        }
+
+        // Метод поверхностного копирования
+        public object ShallowCopy()
+        {
+            return this.MemberwiseClone();
+        }
 
         // Метод просмотра объектов класса (Виртуальный)
         public virtual void Show()
@@ -103,6 +114,11 @@ namespace ClassLibraryLab10
             Console.WriteLine($"ID: {Id} \t Имя: {Name} \t Срок действия: {Time} \t Номер: {num}");
         }
 
+        // Преобразование в строку
+        public override string ToString()
+        {
+            return $"{id} {Name} {Time} {num}";
+        }
 
         // Реализация метода Init интерфейса IInit
         public virtual void Init()
@@ -121,7 +137,6 @@ namespace ClassLibraryLab10
         }
 
 
-
         // Реализация метода RandomInit интерфейса IInit
         public virtual void RandomInit()
         {
@@ -132,20 +147,13 @@ namespace ClassLibraryLab10
         }
 
 
-
         // Вспомогательный метод для генерации случайного ID
         public string GenerateRandomId()
         {
             // Генерируем 16 случайных цифр и добавляем пробелы
             return string.Format("{0:D4} {1:D4} {2:D4} {3:D4}", rnd.Next(10000), rnd.Next(10000), rnd.Next(10000), rnd.Next(10000));
         }
-
-        // Преобразование в строку
-        public override string ToString()
-        {
-            return $"{id} {Name} {Time} {num}";
-        }
-
+    
         // Вспомогательный метод для генерации случайного имени
         public string GenerateRandomName()
         {
@@ -154,16 +162,12 @@ namespace ClassLibraryLab10
             return names[rnd.Next(names.Length)];
         }
 
-
-
         // Вспомогательный метод для генерации случайного срока действия
         public string GenerateRandomTime()
         {
             // Генерируем случайный месяц (от 01 до 12) и год (от 00 до 99)
             return string.Format("{0:D2}/{1:D2}", rnd.Next(1, 13), rnd.Next(20, 35));
         }
-
-
 
         public override bool Equals(object obj)
         {
@@ -178,6 +182,7 @@ namespace ClassLibraryLab10
             return this.Id == other.Id && this.Name == other.Name && this.Time == other.Time;
         }
 
+
         public int CompareTo(object obj)
         {
             if (obj == null) { return -1; }
@@ -186,19 +191,10 @@ namespace ClassLibraryLab10
             return String.Compare(this.id, card.Id);
         }
 
-
-        // Метод глубокого копирования
-        public object Clone()
+        // Метод для получения количества созданных объектов
+        public static int GetObjectCount()
         {
-            return new Card(Id, Name, Time, num.number);
+            return CardCount;
         }
-
-        // Метод поверхностного копирования
-        public object ShallowCopy()
-        {
-            return this.MemberwiseClone();
-        }
-
-
     }
 }
