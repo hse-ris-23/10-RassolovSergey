@@ -83,15 +83,15 @@ namespace ClassLibraryLab10
         // Метод просмотра объектов класса
         public override void Show()
         {
-            base.Show();                                // Вызываем метод просмотра базового класса Card
-            Console.WriteLine($"\tБаланс: {Balance}");  // Добавляем выведение баланса
+            base.Show();                            // Вызываем метод просмотра базового класса Card
+            Console.Write($"\tБаланс: {Balance}");  // Добавляем выведение баланса
         }
 
         // Метод просмотра объектов класса (НЕ Виртуальный)
         public new void Print()
         {
             base.Print();                               // Вызываем метод просмотра базового класса Card
-            Console.WriteLine($"\t Баланс: {Balance}"); // Добавляем выведение баланса
+            Console.Write($"\tБаланс: {Balance}"); // Добавляем выведение баланса
         }
 
         public override bool Equals(object obj)

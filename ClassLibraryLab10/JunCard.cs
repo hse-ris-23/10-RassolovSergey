@@ -81,7 +81,7 @@ namespace ClassLibraryLab10
         public override void Show()
         {
             base.Show(); // Вызываем виртуальный метод вывода базового класса DebitCard 
-            Console.WriteLine($"\t Кешбек: {CashBack}%"); // Выводим новое значение кешбека
+            Console.Write($"\tКешбек: {CashBack}%"); // Выводим новое значение кешбека
         }
 
 
@@ -89,7 +89,7 @@ namespace ClassLibraryLab10
         public new void Print()
         {
             base.Print(); // Вызываем не виртуальный метод вывода базового класса DebitCard 
-            Console.WriteLine($"\t Кешбек: {CashBack}%"); // Генерируем новое значение кешбека
+            Console.Write($"\tКешбек: {CashBack}%"); // Генерируем новое значение кешбека
         }
 
         public override bool Equals(object obj)
@@ -104,7 +104,7 @@ namespace ClassLibraryLab10
             return CashBack == otherJunCard.CashBack;
         }
         // Метод для получения количества созданных объектов
-        public static int GetObjectCount()
+        public new static int GetObjectCount()
         {
             return junCardCount;
         }

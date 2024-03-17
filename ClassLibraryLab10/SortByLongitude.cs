@@ -6,7 +6,7 @@ using System.Threading.Tasks;
 
 namespace ClassLibraryLab10
 {
-    internal class SortByLongitude
+    public class SortByLongitude: IComparer
     {
         public int Compare(object x, object y)
         {

@@ -53,7 +53,15 @@ namespace ClassLibraryLab10
             get => time;
             set
             {
-                if (value == null || value.Length != 5 & (!char.IsDigit(value[0]) || !char.IsDigit(value[1])) & (value[2] != '/') & ((int)(value[0]+value[1]) >= 1) & ((int)(value[0]+value[1]) <= 12)) // Проверка на длину, наличие только цифр и пробела
+                if (value == null || value.Length != 5 || !char.IsDigit(value[0]) || !char.IsDigit(value[1]) || value[2] != '/' || !char.IsDigit(value[3]) || !char.IsDigit(value[4])) // Проверка на длину, наличие только цифр и пробела
+                {
+                    throw new Exception("Неверный формат срока действия карты");
+                }
+
+                int month = int.Parse(value.Substring(0, 2));
+                int year = int.Parse(value.Substring(3, 2));
+
+                if (month < 1 || month > 12 || year < 0 || year > 99)
                 {
                     throw new Exception("Неверный формат срока действия карты");
                 }
@@ -111,7 +119,7 @@ namespace ClassLibraryLab10
         // Метод просмотра объектов класса (НЕ Виртуальный)
         public void Print()
         {
-            Console.WriteLine($"ID: {Id} \t Имя: {Name} \t Срок действия: {Time} \t Номер: {num}");
+            Console.Write($"ID: {Id} \t Имя: {Name} \t Срок действия: {Time} \t Номер: {num}");
         }
 
         // Преобразование в строку

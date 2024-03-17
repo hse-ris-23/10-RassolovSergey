@@ -104,15 +104,15 @@ namespace ClassLibraryLab10
         public override void Show()
         {
             base.Show();    // Выводим основные значение класса Card
-            Console.WriteLine($"\t Лимит: {Limit} \t Срок погашения: {TimeCredit}"); // Выводим значение класса CreditCard (Limit и TimeCredit)
+            Console.WriteLine($"\tЛимит: {Limit} \t                Срок погашения: {TimeCredit}"); // Выводим значение класса CreditCard (Limit и TimeCredit)
         }
 
 
         // Метод просмотра объектов класса (Не Виртуальный)
-        public new void Print()
+        public new void Print() 
         {
             base.Print(); // Выводим основные значение класса Card
-            Console.WriteLine($"\t Лимит: {Limit} \t Срок погашения: {TimeCredit}"); // Выводим значение класса CreditCard (Limit и TimeCredit)
+            Console.WriteLine($"\tЛимит: {Limit} \t                Срок погашения: {TimeCredit}"); // Выводим значение класса CreditCard (Limit и TimeCredit)
         }
 
 
