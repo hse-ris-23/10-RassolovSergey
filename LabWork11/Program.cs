@@ -4,11 +4,12 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace ClassLibraryLab10
+namespace LabWork11
 {
-    public interface IInit
+    internal class Program
     {
-        void Init();
-        void RandomInit();
+        static void Main(string[] args)
+        {
+        }
     }
 }
