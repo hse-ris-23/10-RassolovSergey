@@ -12,7 +12,7 @@ namespace LabWork
 {
     internal class Program
     {
-        public static int AmountMonthlyRefunds(Card[] arr)
+        public static int AmountMonthlyRefunds(Card[] arr)  // Используется typeof и as
         {
             int totalRefunds = 0;   // Общая сумма возвратов
             int creditCardCount = 0; // Количество кредитных карт
@@ -75,7 +75,7 @@ namespace LabWork
         }
 
         //Общая сумма возможного кешбека по всем действующим молодёжным картам
-        public static double SumCashback(Card[] arr)
+        public static double SumCashback(Card[] arr)  // Используется is
         {
             double sum = 0;
             foreach (Card item in arr)
@@ -133,24 +133,21 @@ namespace LabWork
             foreach (Card item in arrCard)
             {
                 Console.Write($"\n{helperCountCard}" + ")\t");  // Проверяем что item является объектом класса DebitCard
-                if (item is JunCard)    // Проверяем что item является объектом класса JunCard
+                if (item is JunCard jCard)    // Проверяем что item является объектом класса JunCard
                 {
-                    JunCard jCard = item as JunCard;
                     jCard.Print();
                 }
-                else if (item is DebitCard)
+                else if (item is DebitCard dCard)
                 {
-                    DebitCard dCard = item as DebitCard;
                     dCard.Print();
                 }
-                else if (typeof(CreditCard).IsInstanceOfType(item)) // Проверяем что item является объектом класса CreditCard
+                else if (item is CreditCard creditCard)
                 {
-                    CreditCard creditCard = item as CreditCard;
                     creditCard.Print();
                 }
-                else if (item is Card)  // Проверяем что item является объектом класса Card
+                else if (item is Card card)  // Проверяем что item является объектом класса Card
                 {
-                    item.Print();
+                    card.Print();
                 }
                 helperCountCard++;
             }
@@ -332,19 +329,121 @@ namespace LabWork
             // Выводим экземпляры класса
             Console.WriteLine("\nОтсортированный по Долготе:\n");
             helperCountCard = 1;
+            Console.WriteLine("-------------------------------------------------------------------");
             foreach (GeoCoordinates item in arrLocal)
             {
                 Console.Write(helperCountCard + ")\t");
                 item.Show();
                 helperCountCard++;
             }
+            Console.WriteLine("-------------------------------------------------------------------");
 
-            // Подсчитаем кол-во объектов каждого типа
-            Console.WriteLine("\n\nКол-во объектов класса Card: \t \t" + Card.GetObjectCount());
-            Console.WriteLine("Кол-во объектов класса DebitCard: \t" + DebitCard.GetObjectCount());
-            Console.WriteLine("Кол-во объектов класса JunCard: \t" + JunCard.GetObjectCount());
-            Console.WriteLine("Кол-во объектов класса CreditCard: \t" + CreditCard.GetObjectCount());
-            Console.WriteLine("Кол-во объектов класса GeoCoordinates: \t" + GeoCoordinates.GetObjectCount());
+            // Создаем массив из 50 объектов
+            object[] objects = new object[50];
+
+            // Заполняем массив объектами различных классов с помощью RandomInit
+            Random rnd = new Random();
+            for (int i = 0; i < objects.Length; i++)
+            {
+                int classType = rnd.Next(5); // Генерируем случайное число от 0 до 4, чтобы определить тип объекта
+
+                switch (classType)
+                {
+                    case 0: // Создаем объект класса DebitCard
+                        DebitCard debitCard = new DebitCard();
+                        debitCard.RandomInit();
+                        objects[i] = debitCard;
+                        break;
+                    case 1: // Создаем объект класса JunCard
+                        JunCard junCard = new JunCard();
+                        junCard.RandomInit();
+                        objects[i] = junCard;
+                        break;
+                    case 2: // Создаем объект класса CreditCard
+                        CreditCard creditCard = new CreditCard();
+                        creditCard.RandomInit();
+                        objects[i] = creditCard;
+                        break;
+                    case 3: // Создаем объект класса GeoCoordinates
+                        GeoCoordinates geoCoordinates = new GeoCoordinates();
+                        geoCoordinates.RandomInit();
+                        objects[i] = geoCoordinates;
+                        break;
+                    case 4: // Создаем объект класса Card
+                        Card card = new Card();
+                        card.RandomInit();
+                        objects[i] = card; 
+                        break;
+                }
+            }
+
+            // Выводим информацию о каждом объекте после вызова метода RandomInit
+            Console.WriteLine("\n\nМассив объектов ВСЕХ классов:");
+
+            helperCountCard = 1; // Вспомогательная переменная
+
+            // Создаем счетчикм для подсчета кол-во объектов каждого класса в массиве
+            // (в теории можно сделать слоднее, но нужно ли это когда у нас всего 5 классов)
+            int CountJunCard = 0;
+            int CountDebitCard = 0;
+            int CountCreditCard = 0;
+            int CountCard = 0;
+            int CountGeoCoordinates = 0;
+
+            // Перебор и вывод  всех элементов массива
+            Console.WriteLine("\n-------------------------------------------------------------------");
+            foreach (var obj in objects)
+            {
+                Console.Write("\n" + helperCountCard + ")\t"); // Вывод номера "1), 2), 3)"
+                if (obj is JunCard jCard)
+                {
+                    jCard.Show();
+                    CountJunCard++;
+                }
+                else if (obj is DebitCard dCard)
+                {
+                    dCard.Show();
+                    CountDebitCard++;
+                }
+                else if (obj is CreditCard creditCard)
+                {
+                    creditCard.Show();
+                    CountCreditCard++;
+                }
+                else if (obj is Card card)
+                {
+                    card.Show();
+                    CountCard++;
+                }
+                else if (obj is GeoCoordinates loc)
+                {
+                    loc.Show();
+                    CountGeoCoordinates++;
+                }
+                helperCountCard++; // Добавление +1 к номеру
+            }
+            Console.WriteLine("\n-------------------------------------------------------------------");
+
+            Console.WriteLine("\nДанный массив содержит следующие объекты классов:");
+            Console.WriteLine("-------------------------------------------------------------------");
+            Console.WriteLine($"Объекты класса Card: {CountCard} экземпляров");
+            Console.WriteLine($"Объекты класса DebitCard: {CountDebitCard} экземпляров");
+            Console.WriteLine($"Объекты класса JunCard: {CountJunCard} экземпляров");
+            Console.WriteLine($"Объекты класса CreditCard: {CountCreditCard} экземпляров");
+            Console.WriteLine($"Объекты класса GeoCoordinates: {CountGeoCoordinates} экземпляров");
+            Console.WriteLine("-------------------------------------------------------------------");
+
+
+
+            // Выводим информацию о количестве созданных объектов для каждого класса
+            Console.WriteLine("\nВ данной программе было использованно:");
+            Console.WriteLine("-------------------------------------------------------------------");
+            Console.WriteLine($"Объекты класса Card: {Card.GetObjectCount()}");
+            Console.WriteLine($"Объекты класса DebitCard: {DebitCard.GetObjectCount()}");
+            Console.WriteLine($"Объекты класса JunCard: {JunCard.GetObjectCount()}");
+            Console.WriteLine($"Объекты класса CreditCard: {CreditCard.GetObjectCount()}");
+            Console.WriteLine($"Объекты класса GeoCoordinates: {GeoCoordinates.GetObjectCount()}");
+            Console.WriteLine("-------------------------------------------------------------------");
         }
     }
 }

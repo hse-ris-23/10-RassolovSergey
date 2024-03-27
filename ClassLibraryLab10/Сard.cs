@@ -14,7 +14,7 @@ namespace ClassLibraryLab10
         private string id;                          // ID владельца
         private string name;                        // Имя владельца
         private string time;                        // Срок действия
-        private Card mainCard;
+
 
 
         // Свойства для id
@@ -51,8 +51,8 @@ namespace ClassLibraryLab10
         public string Time
         {
             get => time;
-            set
-            {
+            set    // Проверка:     
+            {      // на пустоту     -----на длинну-----   -------------на то что месяц это число------------  -на наличие "/"-     -------------на то что год это число------------
                 if (value == null || value.Length != 5 || !char.IsDigit(value[0]) || !char.IsDigit(value[1]) || value[2] != '/' || !char.IsDigit(value[3]) || !char.IsDigit(value[4])) // Проверка на длину, наличие только цифр и пробела
                 {
                     throw new Exception("Неверный формат срока действия карты");
@@ -91,10 +91,12 @@ namespace ClassLibraryLab10
         }
 
         // Конструктор копирования
-        public Card(Card mainCard)
+        public Card(Card mCard)
         {
-            this.mainCard = mainCard;
+            Card copyCard = (Card)mCard.MemberwiseClone();  // Копирование полей с помощью метода MemberwiseClone()
+            CardCount++;                                    // Увеличение счетчика карточек
         }
+
 
         // Метод глубокого копирования
         public object Clone()
