@@ -108,5 +108,12 @@ namespace ClassLibraryLab10
         {
             return junCardCount;
         }
+
+        // Переопределение метода ToString() для представления объекта в виде строки
+        public override string ToString()
+        {
+            base.ToString();
+            return $"{Id} {Name} {Time} {num} {Balance} {cashBack}";
+        }
     }
 }

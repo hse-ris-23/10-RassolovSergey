@@ -109,5 +109,11 @@ namespace ClassLibraryLab10
         {
             return debitCardCount;
         }
+
+        // Переопределение метода ToString() для представления объекта в виде строки
+        public override string ToString()
+        {
+            return $"{Id} {Name} {Time} {num} {Balance}";
+        }
     }
 }

@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Collections;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
@@ -6,7 +7,7 @@ using System.Threading.Tasks;
 
 namespace ClassLibraryLab10
 {
-    public class Card : IInit, IComparable, ICloneable
+    public class Card : IInit, IComparable, ICloneable, IEnumerable<Card>
     {
         public static int CardCount = 0;
         public IdNumber num;
@@ -205,6 +206,18 @@ namespace ClassLibraryLab10
         public static int GetObjectCount()
         {
             return CardCount;
+        }
+
+        // Реализация метода GetEnumerator()
+        public IEnumerator<Card> GetEnumerator()
+        {
+            yield return this;
+        }
+
+        // Реализация метода GetEnumerator() интерфейса IEnumerable
+        IEnumerator IEnumerable.GetEnumerator()
+        {
+            return GetEnumerator();
         }
     }
 }

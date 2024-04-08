@@ -132,5 +132,12 @@ namespace ClassLibraryLab10
         {
             return creditCardCount;
         }
+
+        // Переопределение метода ToString() для представления объекта в виде строки
+        public override string ToString()
+        {
+            base.ToString();
+            return $"{Id} {Name} {Time} {num} {limit} {timeCredit}";
+        }
     }
 }
