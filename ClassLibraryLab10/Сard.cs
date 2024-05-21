@@ -71,6 +71,8 @@ namespace ClassLibraryLab10
             }
         }
 
+        public int Key => throw new NotImplementedException();
+
         // Конструктор без параметра
         public Card()
         {
@@ -128,7 +130,7 @@ namespace ClassLibraryLab10
         // Преобразование в строку
         public override string ToString()
         {
-            return $"{id} {Name} {Time} {num}";
+            return $"{id} | {Name} | {Time} | {num}";
         }
 
         // Реализация метода Init интерфейса IInit
@@ -143,7 +145,6 @@ namespace ClassLibraryLab10
             Console.WriteLine("Введите Срок действия (в формате MM YY): ");
             Time = Console.ReadLine();
 
-            Console.WriteLine("Введите номер объекта: ");
             num.number = (int)InputHelper.InputUintNumber("Введите номер объекта:");
         }
 
@@ -200,6 +201,12 @@ namespace ClassLibraryLab10
             if (!(obj is  Card)) { return -1; }
             Card card = obj as Card;
             return String.Compare(this.id, card.Id);
+        }
+
+        // Метод - GetHashCode
+        public override int GetHashCode()
+        {
+            return Id.GetHashCode(); // Возвращаем хеш-код по уникальному идентификатору
         }
 
         // Метод для получения количества созданных объектов

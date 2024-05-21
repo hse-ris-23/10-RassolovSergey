@@ -136,8 +136,7 @@ namespace ClassLibraryLab10
         // Переопределение метода ToString() для представления объекта в виде строки
         public override string ToString()
         {
-            base.ToString();
-            return $"{Id} {Name} {Time} {num} {limit} {timeCredit}";
+            return $"{Id} | {Name} | {Time} | {num} | {limit} | {timeCredit}";
         }
     }
 }

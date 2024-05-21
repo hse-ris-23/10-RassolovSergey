@@ -24,5 +24,13 @@ namespace ClassLibraryLab10
                 }
             }
         }
+
+        public static int InputLimitNumber(int num)
+        {
+            int timeNum = (int)InputUintNumber("Ваш выбор:");
+            if (timeNum > num) { throw new Exception("Ошибка! Некорректный ввод."); }
+            else if (timeNum < 0) { throw new Exception("Ошибка! Введите положительное число."); }
+            else { return timeNum; }
+        }
     }
 }
