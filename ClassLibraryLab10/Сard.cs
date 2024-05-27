@@ -4,10 +4,11 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using static ClassLibraryLab10.IIKey;
 
 namespace ClassLibraryLab10
 {
-    public class Card : IInit, IComparable, ICloneable, IEnumerable<Card>
+    public class Card : IInit, IComparable, ICloneable, IKey
     {
         public static int CardCount = 0;
         public IdNumber num;
@@ -26,7 +27,7 @@ namespace ClassLibraryLab10
             {
                 if (value == null || value.Length != 19 || (!value.All(char.IsDigit) & (value[4] != ' ' || value[9] != ' ' || value[14] != ' '))) // Проверка на длину, наличие только цифр и пробелов
                 {
-                    throw new Exception("Неверный формат id!");
+                    Console.WriteLine("Неверный формат id!");
                 }
 
                 id = value;
@@ -71,7 +72,22 @@ namespace ClassLibraryLab10
             }
         }
 
-        public int Key => throw new NotImplementedException();
+        // Свойство Key для интерфейса IKey
+        public int Key
+        {
+            get
+            {
+                // Используем комбинацию полей для создания уникального ключа
+                unchecked
+                {
+                    int hash = 17;
+                    hash = hash * 23 + (Id != null ? Id.GetHashCode() : 0);
+                    hash = hash * 23 + (Name != null ? Name.GetHashCode() : 0);
+                    hash = hash * 23 + (Time != null ? Time.GetHashCode() : 0);
+                    return hash;
+                }
+            }
+        }
 
         // Конструктор без параметра
         public Card()
@@ -136,14 +152,51 @@ namespace ClassLibraryLab10
         // Реализация метода Init интерфейса IInit
         public virtual void Init()
         {
-            Console.WriteLine("Введите ID (используя пробелы): ");
-            Id = Console.ReadLine();
+            bool validInput = false;
 
-            Console.WriteLine("Введите Имя (от 3 до 30 символов): ");
-            Name = Console.ReadLine();
+            while (!validInput)
+            {
+                try
+                {
+                    Console.WriteLine("Введите ID (используя пробелы): ");
+                    Id = Console.ReadLine();
+                    validInput = true;
+                }
+                catch (Exception ex)
+                {
+                    Console.WriteLine(ex.Message);
+                }
+            }
 
-            Console.WriteLine("Введите Срок действия (в формате MM YY): ");
-            Time = Console.ReadLine();
+            validInput = false;
+            while (!validInput)
+            {
+                try
+                {
+                    Console.WriteLine("Введите Имя (от 3 до 30 символов): ");
+                    Name = Console.ReadLine();
+                    validInput = true;
+                }
+                catch (Exception ex)
+                {
+                    Console.WriteLine(ex.Message);
+                }
+            }
+
+            validInput = false;
+            while (!validInput)
+            {
+                try
+                {
+                    Console.WriteLine("Введите Срок действия (в формате MM/YY): ");
+                    Time = Console.ReadLine();
+                    validInput = true;
+                }
+                catch (Exception ex)
+                {
+                    Console.WriteLine(ex.Message);
+                }
+            }
 
             num.number = (int)InputHelper.InputUintNumber("Введите номер объекта:");
         }
@@ -194,6 +247,17 @@ namespace ClassLibraryLab10
             return this.Id == other.Id && this.Name == other.Name && this.Time == other.Time;
         }
 
+        public override int GetHashCode()
+        {
+            unchecked
+            {
+                int hash = 17;
+                hash = hash * 23 + (Id != null ? Id.GetHashCode() : 0);
+                hash = hash * 23 + (Name != null ? Name.GetHashCode() : 0);
+                hash = hash * 23 + (Time != null ? Time.GetHashCode() : 0);
+                return hash;
+            }
+        }
 
         public int CompareTo(object obj)
         {
@@ -201,12 +265,6 @@ namespace ClassLibraryLab10
             if (!(obj is  Card)) { return -1; }
             Card card = obj as Card;
             return String.Compare(this.id, card.Id);
-        }
-
-        // Метод - GetHashCode
-        public override int GetHashCode()
-        {
-            return Id.GetHashCode(); // Возвращаем хеш-код по уникальному идентификатору
         }
 
         // Метод для получения количества созданных объектов
@@ -219,12 +277,6 @@ namespace ClassLibraryLab10
         public IEnumerator<Card> GetEnumerator()
         {
             yield return this;
-        }
-
-        // Реализация метода GetEnumerator() интерфейса IEnumerable
-        IEnumerator IEnumerable.GetEnumerator()
-        {
-            return GetEnumerator();
         }
     }
 }

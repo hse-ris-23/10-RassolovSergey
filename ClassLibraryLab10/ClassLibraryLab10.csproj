@@ -49,6 +49,7 @@
     <Compile Include="GeoCoordinates.cs" />
     <Compile Include="IdNumber.cs" />
     <Compile Include="IInit.cs" />
+    <Compile Include="Ikey.cs" />
     <Compile Include="InputHelper.cs" />
     <Compile Include="SortByLongitude.cs" />
     <Compile Include="SortByTime.cs" />
