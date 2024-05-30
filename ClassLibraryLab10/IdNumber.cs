@@ -6,7 +6,7 @@ using System.Threading.Tasks;
 
 namespace ClassLibraryLab10
 {
-    public class IdNumber
+    public class IdNumber: IComparable
     {
         public int number;
 
@@ -33,6 +33,19 @@ namespace ClassLibraryLab10
                 return this.number == n.number;
             }
             return false;
+        }
+
+        public int CompareTo(object obj)
+        {
+            if (obj == null) return 1;
+
+            IdNumber other = obj as IdNumber;
+            if (other == null)
+            {
+                throw new ArgumentException("Объект не является типом IdNumber");
+            }
+
+            return this.number.CompareTo(other.number);
         }
     }
 }

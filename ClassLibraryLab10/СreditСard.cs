@@ -6,7 +6,7 @@ using System.Threading.Tasks;
 
 namespace ClassLibraryLab10
 {
-    public class CreditCard : Card, IInit
+    public class CreditCard : Card
     {
         public static int creditCardCount = 0;
         private int limit; // Лимит средств

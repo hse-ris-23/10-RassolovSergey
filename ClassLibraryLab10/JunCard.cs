@@ -6,7 +6,7 @@ using System.Threading.Tasks;
 
 namespace ClassLibraryLab10
 {
-    public class JunCard : DebitCard, IInit
+    public class JunCard : DebitCard
     {
         public static int junCardCount = 0;
         private double cashBack; // Кешбек по карте

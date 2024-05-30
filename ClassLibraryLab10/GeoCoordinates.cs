@@ -11,6 +11,7 @@ namespace ClassLibraryLab10
         public static int objectCount = 0;
 
 
+
         // GeoCoordinates
         private double latitude;  // Широта
         private double longitude; // Долгота

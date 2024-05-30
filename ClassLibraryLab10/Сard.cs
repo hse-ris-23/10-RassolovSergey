@@ -8,7 +8,7 @@ using static ClassLibraryLab10.IIKey;
 
 namespace ClassLibraryLab10
 {
-    public class Card : IInit, IComparable, ICloneable, IKey
+    public class Card : IInit, IComparable, ICloneable
     {
         public static int CardCount = 0;
         public IdNumber num;
@@ -16,7 +16,6 @@ namespace ClassLibraryLab10
         private string id;                          // ID владельца
         private string name;                        // Имя владельца
         private string time;                        // Срок действия
-
 
 
         // Свойства для id
@@ -27,7 +26,7 @@ namespace ClassLibraryLab10
             {
                 if (value == null || value.Length != 19 || (!value.All(char.IsDigit) & (value[4] != ' ' || value[9] != ' ' || value[14] != ' '))) // Проверка на длину, наличие только цифр и пробелов
                 {
-                    Console.WriteLine("Неверный формат id!");
+                    throw new Exception("Неверный формат Id!");
                 }
 
                 id = value;
@@ -69,23 +68,6 @@ namespace ClassLibraryLab10
                 }
 
                 time = value;
-            }
-        }
-
-        // Свойство Key для интерфейса IKey
-        public int Key
-        {
-            get
-            {
-                // Используем комбинацию полей для создания уникального ключа
-                unchecked
-                {
-                    int hash = 17;
-                    hash = hash * 23 + (Id != null ? Id.GetHashCode() : 0);
-                    hash = hash * 23 + (Name != null ? Name.GetHashCode() : 0);
-                    hash = hash * 23 + (Time != null ? Time.GetHashCode() : 0);
-                    return hash;
-                }
             }
         }
 
@@ -243,8 +225,8 @@ namespace ClassLibraryLab10
             // Приводим объект к типу Card
             Card other = (Card)obj;
 
-            // Сравниваем значения широты текущего объекта с другим объектом GeoCoordinates
-            return this.Id == other.Id && this.Name == other.Name && this.Time == other.Time;
+            // Сравниваем значения 
+            return this.Id == other.Id && this.Name == other.Name && this.Time == other.Time && this.num == ((Card)obj).num;
         }
 
         public override int GetHashCode()
@@ -261,10 +243,34 @@ namespace ClassLibraryLab10
 
         public int CompareTo(object obj)
         {
-            if (obj == null) { return -1; }
-            if (!(obj is  Card)) { return -1; }
-            Card card = obj as Card;
-            return String.Compare(this.id, card.Id);
+            if (obj == null) return 1;
+
+            Card other = obj as Card;
+            if (other == null) return 1;
+
+            // Сначала сравниваем Id
+            int idComparison = this.Id.CompareTo(other.Id);
+            if (idComparison != 0)
+            {
+                return idComparison;
+            }
+
+            // Затем сравниваем Name
+            int nameComparison = this.Name.CompareTo(other.Name);
+            if (nameComparison != 0)
+            {
+                return nameComparison;
+            }
+
+            // Затем сравниваем Time
+            int timeComparison = this.Time.CompareTo(other.Time);
+            if (timeComparison != 0)
+            {
+                return timeComparison;
+            }
+
+            // Наконец, сравниваем num
+            return this.num.CompareTo(other.num);
         }
 
         // Метод для получения количества созданных объектов
@@ -273,10 +279,5 @@ namespace ClassLibraryLab10
             return CardCount;
         }
 
-        // Реализация метода GetEnumerator()
-        public IEnumerator<Card> GetEnumerator()
-        {
-            yield return this;
-        }
     }
 }

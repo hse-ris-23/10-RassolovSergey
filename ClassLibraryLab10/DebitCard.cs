@@ -6,7 +6,7 @@ using System.Threading.Tasks;
 
 namespace ClassLibraryLab10
 {
-    public class DebitCard : Card, IInit, ICloneable
+    public class DebitCard : Card, ICloneable
     {
         public static int debitCardCount = 0;
         private double balance; // Баланс владельца
