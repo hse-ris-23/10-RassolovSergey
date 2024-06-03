@@ -8,7 +8,7 @@ using static ClassLibraryLab10.IIKey;
 
 namespace ClassLibraryLab10
 {
-    public class Card : IInit, IComparable, ICloneable
+    public class Card : IInit, IComparable, ICloneable, ISummable
     {
         public static int CardCount = 0;
         public IdNumber num;
@@ -226,7 +226,7 @@ namespace ClassLibraryLab10
             Card other = (Card)obj;
 
             // Сравниваем значения 
-            return this.Id == other.Id && this.Name == other.Name && this.Time == other.Time && this.num == ((Card)obj).num;
+            return this.Id == other.Id && this.Name == other.Name && this.Time == other.Time;
         }
 
         public override int GetHashCode()
@@ -279,5 +279,11 @@ namespace ClassLibraryLab10
             return CardCount;
         }
 
+
+        // Реализация метода интерфейса ISummable
+        public double GetValueForSum()
+        {
+            return num.number;
+        }
     }
 }
