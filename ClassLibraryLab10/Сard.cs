@@ -8,7 +8,7 @@ using static ClassLibraryLab10.IIKey;
 
 namespace ClassLibraryLab10
 {
-    public class Card : IInit, IComparable, ICloneable, ISummable
+    public class Card : IInit, IComparable, ICloneable, ISummable, IEnumerable, IEnumerable<Card>
     {
         public static int CardCount = 0;
         public IdNumber num;
@@ -284,6 +284,16 @@ namespace ClassLibraryLab10
         public double GetValueForSum()
         {
             return num.number;
+        }
+
+        public IEnumerator GetEnumerator()
+        {
+            return ((IEnumerable)id).GetEnumerator();
+        }
+
+        IEnumerator<Card> IEnumerable<Card>.GetEnumerator()
+        {
+            throw new NotImplementedException();
         }
     }
 }
